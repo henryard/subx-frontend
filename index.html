@@ -617,6 +617,9 @@
     </div>
 
     <script>
+        // 配置 Worker API 地址
+        const WORKER_API = 'https://your-worker.workers.dev'; // 替换为你的 Worker 地址
+
         const subUrlInput = document.getElementById('sub-url');
         const convertBtn = document.getElementById('convert-btn');
         const clientSelect = document.getElementById('client-select');
@@ -666,13 +669,12 @@
         themeToggle.addEventListener('click', toggleTheme);
         initTheme();
 
-        // 检测内容是否溢出，动态调整对齐方式
         function checkOverflow() {
             const container = document.querySelector('.container');
             const containerHeight = container.offsetHeight;
             const windowHeight = window.innerHeight;
             const isMobile = window.innerWidth <= 600;
-            const padding = isMobile ? 32 : 64; // 移动端和桌面端不同的padding
+            const padding = isMobile ? 32 : 64;
             
             if (containerHeight > windowHeight - padding) {
                 document.body.classList.add('has-overflow');
@@ -681,7 +683,6 @@
             }
         }
 
-        // 初始检查和窗口大小改变时检查
         window.addEventListener('load', checkOverflow);
         window.addEventListener('resize', checkOverflow);
 
@@ -729,20 +730,9 @@
             }
         }
 
-        function checkUrlType(url) {
-            if (!url) return;
-            
-            if (isShortLink(url)) {
-                urlInfoDiv.classList.add('show');
-                showToast('检测到短链接，将自动解析', 'warning');
-            } else {
-                urlInfoDiv.classList.remove('show');
-            }
-        }
-        
-        subUrlInput.addEventListener('input', (e) => {
-            const url = e.target.value.trim();
-            const canBeValid = url.toLowerCase().startsWith('http');
+        subUrlInput.addEventListener('input', function() {
+            const url = this.value.trim();
+            const canBeValid = url.length > 0 && url.toLowerCase().startsWith('http');
             
             convertBtn.disabled = !canBeValid;
             clientSelect.disabled = !canBeValid;
@@ -755,7 +745,7 @@
             }
         });
 
-        convertBtn.addEventListener('click', async () => {
+        convertBtn.addEventListener('click', function() {
             const subUrl = subUrlInput.value.trim();
             if (!isValidUrl(subUrl)) {
                 showToast('请检查订阅链接是否有效', 'error');
@@ -764,196 +754,27 @@
 
             convertBtn.classList.add('loading');
             convertBtn.disabled = true;
-            clientSelect.disabled = true;
 
-            try {
-                // 验证订阅链接是否包含有效节点
-                const validationResult = await validateSubscription(subUrl);
-                
-                if (!validationResult.valid) {
-                    showToast(validationResult.message || '没有找到有效节点', 'error');
-                    convertBtn.classList.remove('loading');
-                    convertBtn.disabled = false;
-                    clientSelect.disabled = false;
-                    return;
-                }
+            const workerUrl = new URL(WORKER_API);
+            workerUrl.search = new URLSearchParams({
+                ua: clientSelect.value,
+                url: subUrl
+            }).toString();
+            const fullApiUrl = workerUrl.toString();
+            
+            generatedUrlElem.textContent = fullApiUrl;
+            resultWrapper.style.display = 'block';
+            copyBtnInside.style.display = 'flex';
+            copyToClipboard(fullApiUrl, '订阅链接已复制', '自动复制失败，请手动复制');
 
-                // 验证通过，生成订阅链接
-                const workerUrl = new URL(window.location.href);
-                workerUrl.pathname = '';
-                workerUrl.search = new URLSearchParams({
-                    ua: clientSelect.value,
-                    url: subUrl
-                }).toString();
-                const fullApiUrl = workerUrl.toString();
-                
-                generatedUrlElem.textContent = fullApiUrl;
-                resultWrapper.style.display = 'block';
-                copyBtnInside.style.display = 'flex';
-                copyToClipboard(fullApiUrl, '订阅链接已复制', '自动复制失败，请手动复制');
+            setTimeout(checkOverflow, 100);
 
-                // 检查内容溢出
-                setTimeout(checkOverflow, 100);
-
-            } catch (error) {
-                console.error('验证失败:', error);
-                showToast('验证订阅链接时出错，请重试', 'error');
-            } finally {
-                setTimeout(() => {
-                    convertBtn.classList.remove('loading');
-                    convertBtn.disabled = false;
-                    clientSelect.disabled = false;
-                }, 200);
-            }
+            setTimeout(() => {
+                convertBtn.classList.remove('loading');
+                convertBtn.disabled = false;
+            }, 200);
         });
 
-        // 验证订阅链接函数
-        async function validateSubscription(url) {
-            try {
-                // 1. 检查是否是短链接
-                if (isShortLink(url)) {
-                    showToast('正在解析短链接...', 'warning');
-                    const resolvedUrl = await resolveShortLink(url);
-                    if (!resolvedUrl) {
-                        return { valid: false, message: '无法解析短链接' };
-                    }
-                    url = resolvedUrl;
-                }
-
-                // 2. 获取订阅内容
-                showToast('正在检测订阅内容...', 'warning');
-                const response = await fetch(url, {
-                    method: 'GET',
-                    mode: 'cors'
-                }).catch(() => null);
-
-                if (!response || !response.ok) {
-                    // 如果直接请求失败，尝试通过 Worker 代理
-                    return await validateViaWorker(url);
-                }
-
-                const content = await response.text();
-                
-                // 3. 检查内容类型
-                if (content.includes('proxies:')) {
-                    // YAML 格式
-                    return validateYamlContent(content);
-                } else {
-                    // 可能是 Base64 编码的订阅
-                    return validateBase64Content(content);
-                }
-
-            } catch (error) {
-                console.error('验证错误:', error);
-                // 如果前端验证失败，尝试通过 Worker 验证
-                return await validateViaWorker(url);
-            }
-        }
-
-        // 通过 Worker 验证
-        async function validateViaWorker(url) {
-            try {
-                const workerUrl = new URL(window.location.href);
-                workerUrl.pathname = '';
-                workerUrl.search = new URLSearchParams({
-                    ua: 's', // 使用简单格式快速验证
-                    url: url
-                }).toString();
-
-                const response = await fetch(workerUrl.toString());
-                if (response.ok) {
-                    const content = await response.text();
-                    // 检查返回的内容是否包含节点
-                    if (content && content.length > 50) {
-                        return { valid: true };
-                    }
-                }
-                return { valid: false, message: '没有找到有效节点' };
-            } catch (error) {
-                return { valid: false, message: '验证失败，请检查链接' };
-            }
-        }
-
-        // 解析短链接
-        async function resolveShortLink(url) {
-            try {
-                const response = await fetch(url, {
-                    method: 'HEAD',
-                    redirect: 'manual'
-                });
-                
-                const location = response.headers.get('Location');
-                if (location) {
-                    return location;
-                }
-                
-                // 如果 HEAD 请求失败，尝试 GET 请求
-                const getResponse = await fetch(url, {
-                    redirect: 'manual'
-                });
-                return getResponse.headers.get('Location') || null;
-            } catch (error) {
-                console.error('解析短链接失败:', error);
-                return null;
-            }
-        }
-
-        // 验证 YAML 内容
-        function validateYamlContent(content) {
-            try {
-                // 查找 proxies 部分
-                const proxiesMatch = content.match(/proxies:\s*\n([\s\S]*?)(?=\n\w+:|$)/);
-                if (!proxiesMatch) {
-                    return { valid: false, message: '未找到 proxies 配置' };
-                }
-
-                const proxiesSection = proxiesMatch[1];
-                
-                // 检查是否有节点（查找 name: 或 - name: 或 - {）
-                const hasNodes = /(-\s*name:|name:\s*[^#\n]|-\s*\{)/i.test(proxiesSection);
-                
-                if (hasNodes) {
-                    // 进一步检查是否有服务器配置
-                    const hasServer = /server:/i.test(proxiesSection);
-                    if (hasServer) {
-                        return { valid: true };
-                    }
-                }
-
-                return { valid: false, message: '没有找到有效节点' };
-            } catch (error) {
-                return { valid: false, message: '解析 YAML 失败' };
-            }
-        }
-
-        // 验证 Base64 内容
-        function validateBase64Content(content) {
-            try {
-                // 尝试 Base64 解码
-                const decoded = atob(content.trim());
-                
-                // 检查是否包含代理协议
-                const protocols = ['vmess://', 'vless://', 'trojan://', 'ss://', 'ssr://', 'hysteria://', 'hysteria2://'];
-                const hasValidNode = protocols.some(protocol => decoded.includes(protocol));
-                
-                if (hasValidNode) {
-                    return { valid: true };
-                }
-
-                return { valid: false, message: '没有找到有效节点' };
-            } catch (error) {
-                // 如果不是 Base64，可能是纯文本节点列表
-                const protocols = ['vmess://', 'vless://', 'trojan://', 'ss://', 'ssr://'];
-                const hasValidNode = protocols.some(protocol => content.includes(protocol));
-                
-                if (hasValidNode) {
-                    return { valid: true };
-                }
-
-                return { valid: false, message: '无法识别的订阅格式' };
-            }
-        }
-        
         const copyHandler = (event) => {
             event.stopPropagation();
             const urlToCopy = generatedUrlElem.textContent;
