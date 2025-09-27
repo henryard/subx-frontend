@@ -618,7 +618,7 @@
 
     <script>
         // 配置 Worker API 地址
-        const WORKER_API = 'https://subx.yyds-a5c.workers.dev'; // 替换为你的 Worker 地址
+        const WORKER_API = 'https://subx.yyds-a5c.workers.dev';
 
         const subUrlInput = document.getElementById('sub-url');
         const convertBtn = document.getElementById('convert-btn');
@@ -755,7 +755,8 @@
             convertBtn.classList.add('loading');
             convertBtn.disabled = true;
 
-            const workerUrl = 'https://subx.yyds-a5c.workers.dev';
+            // 正确构建 URL（修复的关键部分）
+            const workerUrl = new URL(WORKER_API);
             workerUrl.search = new URLSearchParams({
                 ua: clientSelect.value,
                 url: subUrl
