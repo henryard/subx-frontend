@@ -755,7 +755,7 @@
             convertBtn.classList.add('loading');
             convertBtn.disabled = true;
 
-            const workerUrl = new URL(WORKER_API);
+            const workerUrl = 'https://subx.yyds-a5c.workers.dev';
             workerUrl.search = new URLSearchParams({
                 ua: clientSelect.value,
                 url: subUrl
