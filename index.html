@@ -26,7 +26,6 @@
             --transition: all 0.3s ease;
             --bg-gradient-start: #f8fafc;
             --bg-gradient-end: #e2e8f0;
-            /* --- 优化点：加深背景色，提高不透明度 --- */
             --card-bg: rgba(255, 255, 255, 0.95);
             --card-border: rgba(148, 163, 184, 0.2);
             --text-primary: #0f172a;
@@ -40,7 +39,6 @@
         [data-theme="dark"] {
             --bg-gradient-start: #0f172a;
             --bg-gradient-end: #1e293b;
-            /* --- 优化点：加深背景色，提高不透明度 --- */
             --card-bg: rgba(30, 41, 59, 0.9);
             --card-border: rgba(255, 255, 255, 0.1);
             --text-primary: #f1f5f9;
@@ -402,7 +400,6 @@
             font-size: 1.1rem;
         }
         
-        /* ++ 自定义下拉选择框样式 ++ */
         .custom-select-wrapper {
             position: relative;
         }
@@ -417,7 +414,6 @@
             background-color: var(--input-bg);
         }
 
-        /* 触发器样式（看起来像输入框） */
         .custom-select__trigger {
             position: relative;
             display: flex;
@@ -441,7 +437,6 @@
             box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
         }
 
-        /* 自定义箭头 */
         .arrow {
             position: relative;
             height: 8px;
@@ -456,7 +451,6 @@
             transform: translateY(2px) rotate(135deg);
         }
 
-        /* 选项面板 */
         .custom-options {
             position: absolute;
             top: calc(100% + 8px);
@@ -464,16 +458,12 @@
             right: 0;
             z-index: 10;
             background: var(--card-bg);
-            
             -webkit-backdrop-filter: blur(16px);
             backdrop-filter: blur(16px);
-            
             border-radius: 12px;
             border: 1px solid var(--card-border);
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             padding: 6px;
-            
-            /* 交互效果 */
             opacity: 0;
             visibility: hidden;
             transform: translateY(-10px);
@@ -486,7 +476,6 @@
             transform: translateY(0);
         }
 
-        /* 单个选项 */
         .custom-option {
             display: flex;
             align-items: center;
@@ -507,7 +496,6 @@
             color: var(--primary-light);
         }
 
-        /* 选中项的样式 */
         .custom-option.selected {
             font-weight: 600;
             color: var(--primary);
@@ -516,7 +504,6 @@
              color: var(--primary-light);
         }
 
-        /* 对勾图标 */
         .custom-option .checkmark {
             stroke: var(--primary);
             opacity: 0;
@@ -531,7 +518,6 @@
             opacity: 1;
             transform: scale(1);
         }
-        /* -- 自定义下拉选择框样式结束 -- */
 
         .toast-container {
             position: fixed;
@@ -727,6 +713,10 @@
                             <span>Shadowrocket</span>
                              <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
                         </div>
+                        <div class="custom-option" data-value="g">
+                            <span>Surge</span>
+                             <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        </div>
                     </div>
                 </div>
                 <input type="hidden" id="client-select-value" value="c">
@@ -764,7 +754,6 @@
         const themeToggle = document.getElementById('theme-toggle');
         const themeColorMeta = document.getElementById('theme-color-meta');
         
-        // ++ 自定义下拉框 JavaScript 逻辑 ++
         const customSelectWrapper = document.getElementById('custom-select-wrapper');
         const selectContainer = document.getElementById('custom-select-container');
         const selectTrigger = selectContainer.querySelector('.custom-select__trigger');
@@ -772,14 +761,12 @@
         const selectedOptionText = document.getElementById('selected-option-text');
         const clientSelectValueInput = document.getElementById('client-select-value');
 
-        // 切换下拉框的展开/收起状态
         selectTrigger.addEventListener('click', () => {
             if (!customSelectWrapper.classList.contains('disabled')) {
                 selectContainer.classList.toggle('open');
             }
         });
 
-        // 处理选项点击事件
         options.forEach(option => {
             option.addEventListener('click', () => {
                 if (option.classList.contains('selected')) {
@@ -794,16 +781,13 @@
             });
         });
         
-        // 当点击页面其他地方时，关闭下拉框 (此功能已实现)
         window.addEventListener('click', (e) => {
             if (!selectContainer.contains(e.target)) {
                 selectContainer.classList.remove('open');
             }
         });
         
-        // 初始化时禁用自定义下拉框
         customSelectWrapper.classList.add('disabled');
-        // -- 自定义下拉框 JS 结束 --
 
         const shortLinkDomains = [
             'suo.yt', 't.cn', 'bit.ly', 'tinyurl.com', 'short.link', 
@@ -966,7 +950,7 @@
                     
                     navigator.clipboard.writeText(shortUrl)
                         .then(() => {
-                            showToast(`解析成功 (${nodeCount}节点)，已复制`);
+                            showToast(`解析成功 (${nodeCount}节点),已复制`);
                         })
                         .catch(err => {
                             showToast('自动复制失败,请手动复制', 'error');
@@ -976,7 +960,7 @@
                     setTimeout(checkOverflow, 100);
 
                 } else {
-                    showToast(result.message || '生成失败，未知错误', 'error');
+                    showToast(result.message || '生成失败,未知错误', 'error');
                     resultWrapper.style.display = 'none';
                 }
             } catch (error) {
