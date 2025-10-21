@@ -218,10 +218,10 @@
             font-size: 0.95rem;
         }
 
-        input[type="url"] {
+        textarea {
             width: 100%;
-            height: 52px;
-            padding: 0 1rem;
+            min-height: 104px;
+            padding: 1rem;
             background: var(--input-bg);
             border: 1px solid var(--input-border);
             border-radius: 12px;
@@ -231,15 +231,17 @@
             -webkit-appearance: none;
             appearance: none;
             box-sizing: border-box;
+            resize: vertical;
+            font-family: inherit;
         }
 
-        input[type="url"]:focus {
+        textarea:focus {
             border-color: var(--primary);
             box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
             outline: none;
         }
 
-        input[type="url"]::placeholder {
+        textarea::placeholder {
             color: var(--text-secondary);
             opacity: 0.6;
         }
@@ -627,8 +629,11 @@
                 font-size: 0.9rem;
             }
             
-            input[type="url"], .custom-select__trigger, button {
+            textarea, .custom-select__trigger, button {
                 font-size: 16px;
+            }
+            
+            button {
                 height: 48px;
             }
             
@@ -699,8 +704,8 @@
         <br>
         
         <div class="form-group">
-            <label for="sub-url">原始订阅链接</label>
-            <input type="url" id="sub-url" placeholder="请在此处粘贴原始订阅链接" required>
+            <label for="sub-input">订阅链接或节点</label>
+            <textarea id="sub-input" placeholder="请在此处粘贴原始订阅链接, 或多个节点(一行一个)" required rows="4"></textarea>
             <div id="url-info" class="url-info">
                 检测到短链接,将自动解析重定向后的链接
             </div>
@@ -725,6 +730,10 @@
                         </div>
                         <div class="custom-option" data-value="s">
                             <span>Shadowrocket</span>
+                             <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        </div>
+                        <div class="custom-option" data-value="g">
+                            <span>Surge</span>
                              <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
                         </div>
                     </div>
@@ -754,7 +763,7 @@
     </div>
 
     <script>
-        const subUrlInput = document.getElementById('sub-url');
+        const subUrlInput = document.getElementById('sub-input');
         const convertBtn = document.getElementById('convert-btn');
         const resultWrapper = document.getElementById('result-wrapper');
         const generatedUrlElem = document.getElementById('generated-url');
@@ -889,18 +898,6 @@
                 });
         }
 
-        function isValidUrl(string) {
-            if (!string || !string.trim().toLowerCase().startsWith('http')) {
-                return false;
-            }
-            try {
-                new URL(string);
-                return true;
-            } catch (_) {
-                return false;
-            }
-        }
-
         function isShortLink(url) {
             try {
                 const parsedUrl = new URL(url);
@@ -914,11 +911,14 @@
         }
         
         subUrlInput.addEventListener('input', () => {
-            const url = subUrlInput.value.trim();
-            const canBeValid = url.toLowerCase().startsWith('http');
-            convertBtn.disabled = !canBeValid;
+            const content = subUrlInput.value.trim();
+            const isUrl = content.toLowerCase().startsWith('http');
+            const hasNodes = content.split(/[\r\n]+/).some(line => line.match(/^(vmess|vless|trojan|ss|ssr|hysteria|hysteria2|tuic|wg):\/\//));
+            const isValidContent = isUrl || hasNodes;
+
+            convertBtn.disabled = !isValidContent;
             
-            if (canBeValid) {
+            if (isValidContent) {
                 customSelectWrapper.classList.remove('disabled');
             } else {
                 customSelectWrapper.classList.add('disabled');
@@ -926,7 +926,7 @@
 
             resultWrapper.style.display = 'none';
             
-            if (canBeValid && isShortLink(url)) {
+            if (isUrl && isShortLink(content)) {
                 urlInfoDiv.classList.add('show');
             } else {
                 urlInfoDiv.classList.remove('show');
@@ -934,9 +934,12 @@
         });
 
         convertBtn.addEventListener('click', async () => {
-            const subUrl = subUrlInput.value.trim();
-            if (!isValidUrl(subUrl)) {
-                showToast('请检查订阅链接是否有效', 'error');
+            const subContent = subUrlInput.value.trim();
+            const isUrl = subContent.toLowerCase().startsWith('http');
+            const hasNodes = subContent.split(/[\r\n]+/).some(line => line.match(/^(vmess|vless|trojan|ss|ssr|hysteria|hysteria2|tuic|wg):\/\//));
+
+            if (!isUrl && !hasNodes) {
+                showToast('请检查输入内容是否有效', 'error');
                 return;
             }
 
@@ -950,7 +953,7 @@
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        url: subUrl,
+                        url: subContent, // Pass the whole content
                         client: clientSelectValueInput.value,
                     })
                 });
@@ -985,7 +988,10 @@
                 resultWrapper.style.display = 'none';
             } finally {
                 convertBtn.classList.remove('loading');
-                if(isValidUrl(subUrlInput.value.trim())) {
+                const currentContent = subUrlInput.value.trim();
+                const currentIsUrl = currentContent.toLowerCase().startsWith('http');
+                const currentHasNodes = currentContent.split(/[\r\n]+/).some(line => line.match(/^(vmess|vless|trojan|ss|ssr|hysteria|hysteria2|tuic|wg):\/\//));
+                if (currentIsUrl || currentHasNodes) {
                    convertBtn.disabled = false;
                    customSelectWrapper.classList.remove('disabled');
                 }
