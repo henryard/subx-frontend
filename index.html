@@ -342,7 +342,6 @@
             border-color: var(--primary-light);
         }
 
-        /* Changed to pre for better formatting */
         #generated-content {
             font-family: 'SF Mono', 'Consolas', 'Menlo', monospace;
             font-size: 0.85rem;
@@ -622,6 +621,9 @@
             
             textarea, .custom-select__trigger, button {
                 font-size: 16px;
+            }
+            
+             button, .custom-select__trigger {
                 height: 52px;
             }
             
@@ -739,7 +741,7 @@
 
         <button id="convert-btn" disabled>
             <div class="loader"></div>
-            <span>生成订阅内容</span>
+            <span>生成</span>
         </button>
 
         <div class="result-container" id="result-wrapper">
@@ -864,6 +866,7 @@
 
         function showToast(message, type = 'success') {
             const container = document.getElementById('toast-container');
+            // Prevent multiple warning toasts
             if (type === 'warning') {
                 const existingToasts = container.querySelectorAll('.toast.warning');
                 existingToasts.forEach(t => t.remove());
@@ -912,9 +915,17 @@
         
         subContentInput.addEventListener('input', () => {
             const content = subContentInput.value.trim();
-            const isUrl = content.toLowerCase().startsWith('http');
-            
+            const lines = content.split('\n').map(line => line.trim()).filter(line => line);
+            const isSingleUrl = lines.length === 1 && isValidUrl(lines[0]);
+
             convertBtn.disabled = !content;
+            
+            const btnSpan = convertBtn.querySelector('span');
+            if (isSingleUrl) {
+                btnSpan.textContent = '生成订阅链接';
+            } else {
+                btnSpan.textContent = '生成订阅内容';
+            }
 
             if (content) {
                 customSelectWrapper.classList.remove('disabled');
@@ -924,7 +935,7 @@
 
             resultWrapper.style.display = 'none';
             
-            if (isUrl && isShortLink(content)) {
+            if (isSingleUrl && isShortLink(lines[0])) {
                 urlInfoDiv.classList.add('show');
             } else {
                 urlInfoDiv.classList.remove('show');
@@ -938,57 +949,75 @@
                 return;
             }
 
-            const isUrl = content.split('\n')[0].trim().toLowerCase().startsWith('http');
-            const payload = {};
+            // Determine if the input is a single URL
+            const lines = content.split('\n').map(line => line.trim()).filter(line => line);
+            const isSingleUrl = lines.length === 1 && isValidUrl(lines[0]);
 
-            if (isUrl && content.split('\n').length === 1) {
-                if (!isValidUrl(content)) {
-                    showToast('请检查订阅链接是否有效', 'error');
-                    return;
-                }
-                payload.url = content;
+            const client = clientSelectValueInput.value;
+            let endpoint = '';
+            let payload = {};
+            let isGeneratingLink = false;
+
+            if (isSingleUrl) {
+                endpoint = '/api/shorten';
+                payload = { url: lines[0], client: client };
+                isGeneratingLink = true;
+                showToast('正在生成订阅链接...', 'warning');
             } else {
-                payload.nodes = content;
+                endpoint = '/api/convert';
+                payload = { nodes: content, client: client };
+                isGeneratingLink = false;
+                showToast('正在生成订阅内容...', 'warning');
             }
-            payload.client = clientSelectValueInput.value;
 
-            showToast('正在生成订阅内容...', 'warning');
             convertBtn.classList.add('loading');
             convertBtn.disabled = true;
             customSelectWrapper.classList.add('disabled');
+            document.querySelector('#result-wrapper label').textContent = isGeneratingLink ? '生成链接' : '生成内容';
 
             try {
-                // New endpoint for direct conversion
-                const response = await fetch('/api/convert', {
+                const response = await fetch(endpoint, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(payload)
                 });
 
-                if (response.headers.get('Content-Type')?.includes('application/json')) {
-                    const result = await response.json();
-                    showToast(result.message || '生成失败，未知错误', 'error');
+                if (!response.ok) {
+                    const errorResult = await response.json();
+                    showToast(errorResult.message || '生成失败，服务器错误', 'error');
                     resultWrapper.style.display = 'none';
-                } else {
-                    const resultText = await response.text();
-                    generatedContentElem.textContent = resultText;
-                    resultWrapper.style.display = 'block';
-                    copyBtnInside.style.display = 'flex';
-                    
-                    navigator.clipboard.writeText(resultText)
-                        .then(() => {
-                            showToast('转换成功，已复制到剪贴板');
-                        })
-                        .catch(err => {
-                            showToast('自动复制失败，请手动复制', 'error');
-                        });
-                    
-                    setTimeout(checkOverflow, 100);
+                    return;
                 }
+
+                let resultText = '';
+                let successMessage = '';
+
+                if (isGeneratingLink) {
+                    const result = await response.json();
+                    resultText = result.shortUrl;
+                    successMessage = `链接生成成功 (${result.nodeCount}节点), 已复制`;
+                } else {
+                    resultText = await response.text();
+                    successMessage = '内容生成成功, 已复制到剪贴板';
+                }
+                
+                generatedContentElem.textContent = resultText;
+                resultWrapper.style.display = 'block';
+                copyBtnInside.style.display = 'flex';
+                
+                navigator.clipboard.writeText(resultText)
+                    .then(() => {
+                        showToast(successMessage);
+                    })
+                    .catch(err => {
+                        showToast('自动复制失败, 请手动复制', 'error');
+                    });
+                
+                setTimeout(checkOverflow, 100);
 
             } catch (error) {
                 showToast('请求失败, 请检查网络或联系管理员', 'error');
-                console.error("Conversion request failed:", error);
+                console.error("Request failed:", error);
                 resultWrapper.style.display = 'none';
             } finally {
                 convertBtn.classList.remove('loading');
@@ -1003,7 +1032,7 @@
             event.stopPropagation();
             const contentToCopy = generatedContentElem.textContent;
             if (contentToCopy) {
-                copyToClipboard(contentToCopy, '内容已复制', '复制失败');
+                copyToClipboard(contentToCopy, '已复制到剪贴板', '复制失败');
             }
         };
         resultBox.addEventListener('click', copyHandler);
