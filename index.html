@@ -4,9 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>订阅转换</title>
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%236366f1'/%3E%3Cstop offset='100%25' stop-color='%238b5cf6'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='256' height='256' rx='56' fill='url(%23g)'/%3E%3Cpath d='M88 64v128M48 152l40 40 40-40M168 192V64M128 104l40-40 40 40' fill='none' stroke='%23fff' stroke-width='24' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
     
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    <style>
+        [x-cloak] { display: none !important; }
+    </style>
+
+    <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     
     <script>
@@ -52,7 +57,7 @@
             <label class="block mb-2 text-sm font-semibold text-slate-700 dark:text-slate-300">原始订阅链接</label>
             <input x-model="subUrl" type="url" placeholder="请在此处粘贴原始订阅链接" 
                    class="w-full h-12 px-4 bg-white dark:bg-slate-700/50 border border-slate-300 dark:border-slate-600 rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all placeholder:text-slate-400">
-            <div x-show="isShortLink" x-collapse class="mt-2 px-4 py-2 bg-amber-50 dark:bg-amber-500/10 border border-amber-200 dark:border-amber-500/30 rounded-lg text-amber-600 dark:text-amber-400 text-sm flex items-center gap-2">
+            <div x-show="isShortLink" x-collapse x-cloak class="mt-2 px-4 py-2 bg-amber-50 dark:bg-amber-500/10 border border-amber-200 dark:border-amber-500/30 rounded-lg text-amber-600 dark:text-amber-400 text-sm flex items-center gap-2">
                 ⚡ 检测到短链接,将自动解析重定向后的链接
             </div>
         </div>
@@ -66,7 +71,7 @@
                 <div class="w-2.5 h-2.5 border-l-2 border-b-2 border-slate-400 transform -rotate-45 transition-transform" :class="dropdownOpen ? 'rotate-[135deg] translate-y-0.5' : ''"></div>
             </div>
             
-            <div x-show="dropdownOpen" x-transition.opacity.duration.200ms
+            <div x-show="dropdownOpen" x-transition.opacity.duration.200ms x-cloak
                  class="absolute z-20 w-full mt-2 p-1.5 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl shadow-xl backdrop-blur-xl">
                 <template x-for="opt in options" :key="opt.val">
                     <div @click="client = opt.val; clientName = opt.name; dropdownOpen = false"
@@ -85,7 +90,7 @@
             <span x-text="loading ? '正在生成...' : '生成订阅链接'"></span>
         </button>
 
-        <div x-show="generatedUrl" x-collapse class="mt-6">
+        <div x-show="generatedUrl" x-collapse x-cloak class="mt-6">
             <label class="block mb-2 text-sm font-semibold text-slate-700 dark:text-slate-300">生成结果</label>
             <div @click="copyToClipboard" class="group relative w-full p-4 pr-12 bg-slate-50 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600 hover:border-primary/50 rounded-xl cursor-pointer transition-all break-all text-xs font-mono text-slate-600 dark:text-slate-400 leading-relaxed">
                 <span x-text="generatedUrl"></span>
@@ -114,7 +119,10 @@
                 ],
                 
                 get isValid() { return this.subUrl.trim().toLowerCase().startsWith('http'); },
+                
+                // 5. 优化短链接判断逻辑
                 get isShortLink() { 
+                    if (!this.subUrl.trim()) return false;
                     try { return this.shortDomains.some(d => new URL(this.subUrl).hostname.endsWith(d)); } catch { return false; }
                 },
 
