@@ -1,12 +1,14 @@
 <!DOCTYPE html>
-<html lang="zh-CN" class="scroll-smooth bg-slate-50 dark:bg-slate-900">
+<html lang="zh-CN" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no">
     <title>订阅转换</title>
+    
     <meta name="theme-color" content="#f8fafc" id="theme-color-meta">
+    
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔗</text></svg>">
     
     <script src="https://cdn.tailwindcss.com"></script>
@@ -27,8 +29,8 @@
                     },
                     keyframes: {
                         'pulse-orb': {
-                            '0%, 100%': { transform: 'scale(1)', opacity: '0.5' },
-                            '50%': { transform: 'scale(1.15)', opacity: '1' },
+                            '0%, 100%': { transform: 'scale(1)', opacity: '0.4' },
+                            '50%': { transform: 'scale(1.15)', opacity: '0.8' },
                         },
                         'slideUp': {
                             '0%': { opacity: '0', transform: 'translateY(10px)' },
@@ -56,12 +58,10 @@
     </style>
 </head>
 
-<body class="text-slate-900 dark:text-slate-100 min-h-[100dvh] flex items-center justify-center p-4 sm:p-8 relative overflow-x-hidden font-sans antialiased selection:bg-primary/30">
+<body class="bg-[#f8fafc] dark:bg-[#0f172a] text-slate-900 dark:text-slate-100 min-h-[100dvh] flex items-center justify-center p-4 sm:p-8 relative overflow-x-hidden font-sans antialiased selection:bg-indigo-500/30 transition-colors duration-300">
 
-    <div class="fixed inset-0 z-[-2] bg-gradient-to-br from-slate-50 to-slate-200 dark:from-slate-900 dark:to-slate-800 transition-colors duration-500"></div>
-
-    <div class="fixed top-[-10%] right-[-10%] w-[50vw] h-[50vw] min-w-[300px] min-h-[300px] rounded-full bg-indigo-400/10 dark:bg-indigo-500/10 blur-[100px] sm:blur-[120px] animate-slow-pulse pointer-events-none z-[-1]"></div>
-    <div class="fixed bottom-[-10%] left-[-10%] w-[60vw] h-[60vw] min-w-[350px] min-h-[350px] rounded-full bg-purple-400/10 dark:bg-purple-500/10 blur-[100px] sm:blur-[120px] animate-slow-pulse pointer-events-none z-[-1]" style="animation-delay: -5s;"></div>
+    <div class="fixed top-[-10%] right-[-10%] w-[50vw] h-[50vw] min-w-[300px] min-h-[300px] rounded-full bg-indigo-500/10 blur-[100px] sm:blur-[120px] animate-slow-pulse pointer-events-none z-[-1]"></div>
+    <div class="fixed bottom-[-10%] left-[-10%] w-[60vw] h-[60vw] min-w-[350px] min-h-[350px] rounded-full bg-purple-500/10 blur-[100px] sm:blur-[120px] animate-slow-pulse pointer-events-none z-[-1]" style="animation-delay: -5s;"></div>
 
     <button id="theme-toggle" class="fixed top-6 right-6 z-50 bg-white/80 dark:bg-slate-800/80 border border-slate-200/50 dark:border-white/10 backdrop-blur-md w-11 h-11 rounded-full flex items-center justify-center shadow-sm hover:scale-105 hover:bg-white dark:hover:bg-slate-800 active:scale-95 transition-all duration-300 group" aria-label="切换主题">
         <svg class="w-[20px] h-[20px] stroke-slate-700 dark:stroke-slate-300 transition-all duration-300 rotate-0 scale-100 dark:-rotate-180 dark:scale-0 absolute" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -74,13 +74,13 @@
 
     <div id="toast-container" class="fixed top-6 right-6 sm:top-20 sm:right-6 z-[1000] flex flex-col gap-3 max-w-[calc(100vw-3rem)]"></div>
 
-    <div class="relative z-10 w-full max-w-[500px] bg-white/90 dark:bg-slate-800/80 backdrop-blur-2xl border border-white/40 dark:border-white/10 p-7 sm:p-10 rounded-3xl shadow-[0_20px_60px_-15px_rgba(0,0,0,0.05)] dark:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.3)] transition-all duration-500 my-auto">
+    <div class="relative z-10 w-full max-w-[500px] bg-white/95 dark:bg-slate-800/95 backdrop-blur-2xl border border-white/40 dark:border-white/5 p-7 sm:p-10 rounded-3xl shadow-[0_20px_60px_-15px_rgba(0,0,0,0.05)] dark:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.4)] transition-all duration-300 my-auto">
         <h1 class="text-2xl sm:text-[1.75rem] font-bold bg-gradient-to-br from-indigo-500 to-purple-600 dark:from-indigo-400 dark:to-purple-400 bg-clip-text text-transparent text-center mb-8 break-keep tracking-wide">订阅转换</h1>
 
         <div class="mb-6">
             <label for="sub-url" class="block mb-2.5 font-medium text-sm text-slate-700 dark:text-slate-300">原始订阅链接</label>
             <input type="url" id="sub-url" placeholder="请在此处粘贴原始订阅链接" required
-                class="w-full h-[50px] px-4 bg-white/80 dark:bg-slate-900/50 border border-slate-200 dark:border-white/10 rounded-xl text-slate-900 dark:text-slate-100 text-[15px] placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-indigo-400 dark:focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 dark:focus:ring-indigo-500/20 transition-all">
+                class="w-full h-[50px] px-4 bg-slate-50 dark:bg-slate-900/80 border border-slate-200 dark:border-white/10 rounded-xl text-slate-900 dark:text-slate-100 text-[15px] placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-indigo-400 dark:focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 dark:focus:ring-indigo-500/20 transition-all">
             
             <div id="url-info" class="hidden mt-3 px-4 py-3 bg-amber-500/10 border border-amber-500/20 rounded-lg text-[13px] text-amber-600 dark:text-amber-400 items-center gap-2 transition-all">
                 <span class="text-base leading-none">⚡</span> 检测到短链接,将自动解析重定向后的链接
@@ -90,12 +90,12 @@
         <div class="mb-8 group" id="custom-select-wrapper">
             <label class="block mb-2.5 font-medium text-sm text-slate-700 dark:text-slate-300">目标客户端</label>
             <div class="relative" id="custom-select-container">
-                <div class="select-trigger flex items-center justify-between w-full h-[50px] px-4 bg-white/80 dark:bg-slate-900/50 border border-slate-200 dark:border-white/10 rounded-xl text-[15px] cursor-pointer select-none transition-all group-[.disabled]:opacity-50 group-[.disabled]:cursor-not-allowed group-[.is-open]:border-indigo-400 dark:group-[.is-open]:border-indigo-500 group-[.is-open]:ring-4 group-[.is-open]:ring-indigo-500/10 dark:group-[.is-open]:ring-indigo-500/20" tabindex="0">
+                <div class="select-trigger flex items-center justify-between w-full h-[50px] px-4 bg-slate-50 dark:bg-slate-900/80 border border-slate-200 dark:border-white/10 rounded-xl text-[15px] cursor-pointer select-none transition-all group-[.disabled]:opacity-50 group-[.disabled]:cursor-not-allowed group-[.is-open]:border-indigo-400 dark:group-[.is-open]:border-indigo-500 group-[.is-open]:ring-4 group-[.is-open]:ring-indigo-500/10 dark:group-[.is-open]:ring-indigo-500/20" tabindex="0">
                     <span id="selected-option-text">Clash (Meta)</span>
                     <div class="w-[9px] h-[9px] border-l-[2px] border-b-[2px] border-slate-400 dark:border-slate-500 -rotate-45 transition-transform duration-300 transform group-[.is-open]:translate-y-[2px] group-[.is-open]:rotate-[135deg]"></div>
                 </div>
                 
-                <div class="absolute top-[calc(100%+8px)] left-0 right-0 z-20 bg-white/95 dark:bg-slate-800/95 backdrop-blur-xl border border-slate-100 dark:border-white/10 rounded-xl p-1.5 shadow-xl opacity-0 invisible -translate-y-2 group-[.is-open]:opacity-100 group-[.is-open]:visible group-[.is-open]:translate-y-0 transition-all duration-200">
+                <div class="absolute top-[calc(100%+8px)] left-0 right-0 z-20 bg-white dark:bg-slate-800 border border-slate-200 dark:border-white/10 rounded-xl p-1.5 shadow-xl opacity-0 invisible -translate-y-2 group-[.is-open]:opacity-100 group-[.is-open]:visible group-[.is-open]:translate-y-0 transition-all duration-200">
                     <div class="custom-option flex items-center justify-between px-4 py-3 rounded-lg cursor-pointer text-[14px] text-slate-600 dark:text-slate-300 hover:bg-indigo-50 dark:hover:bg-indigo-500/10 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors selected text-primary dark:text-indigo-400 font-semibold" data-value="c">
                         <span>Clash (Meta)</span>
                         <svg class="checkmark w-[18px] h-[18px] stroke-current opacity-100 scale-100 transition-all" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
@@ -121,7 +121,7 @@
             <input type="hidden" id="client-select-value" value="c">
         </div>
 
-        <button id="convert-btn" disabled class="group relative overflow-hidden w-full h-[52px] bg-gradient-to-r from-indigo-500 to-purple-500 text-white font-medium rounded-xl flex items-center justify-center gap-2 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed hover:not(:disabled):-translate-y-0.5 hover:not(:disabled):shadow-[0_10px_20px_-10px_rgba(99,102,241,0.6)] active:not(:disabled):translate-y-0 text-[15px]">
+        <button id="convert-btn" disabled class="group relative overflow-hidden w-full h-[52px] bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-medium rounded-xl flex items-center justify-center gap-2 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed hover:not(:disabled):-translate-y-0.5 hover:not(:disabled):shadow-[0_10px_20px_-10px_rgba(99,102,241,0.6)] active:not(:disabled):translate-y-0 text-[15px]">
             <div class="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:not(:disabled):translate-x-full transition-transform duration-700 ease-in-out"></div>
             <div id="btn-loader" class="hidden w-[18px] h-[18px] border-[2px] border-white/30 border-t-white rounded-full animate-spin"></div>
             <span id="btn-text" class="tracking-wide">生成订阅链接</span>
@@ -142,7 +142,6 @@
     </div>
 
     <script>
-        // DOM 元素获取
         const subUrlInput = document.getElementById('sub-url');
         const convertBtn = document.getElementById('convert-btn');
         const btnLoader = document.getElementById('btn-loader');
@@ -153,19 +152,18 @@
         const copyBtnInside = document.getElementById('copy-btn-inside');
         const urlInfoDiv = document.getElementById('url-info');
         const themeToggle = document.getElementById('theme-toggle');
+        
+        // 核心修复 3：获取 theme-color 标签节点
         const themeColorMeta = document.getElementById('theme-color-meta');
 
-        // 下拉框元素获取
         const customSelectWrapper = document.getElementById('custom-select-wrapper');
         const selectTrigger = customSelectWrapper.querySelector('.select-trigger');
         const options = customSelectWrapper.querySelectorAll('.custom-option');
         const selectedOptionText = document.getElementById('selected-option-text');
         const clientSelectValueInput = document.getElementById('client-select-value');
 
-        // 初始化禁用下拉框
         customSelectWrapper.classList.add('disabled');
 
-        // 下拉框逻辑
         selectTrigger.addEventListener('click', (e) => {
             e.stopPropagation();
             if (!customSelectWrapper.classList.contains('disabled')) {
@@ -181,7 +179,6 @@
                     return;
                 }
                 
-                // 重置所有选项样式
                 options.forEach(o => {
                     o.classList.remove('selected', 'text-primary', 'dark:text-indigo-400', 'font-semibold');
                     const icon = o.querySelector('.checkmark');
@@ -189,13 +186,11 @@
                     icon.classList.replace('scale-100', 'scale-75');
                 });
 
-                // 设置当前项样式
                 option.classList.add('selected', 'text-primary', 'dark:text-indigo-400', 'font-semibold');
                 const activeIcon = option.querySelector('.checkmark');
                 activeIcon.classList.replace('opacity-0', 'opacity-100');
                 activeIcon.classList.replace('scale-75', 'scale-100');
 
-                // 更新值
                 selectedOptionText.textContent = option.querySelector('span').textContent;
                 clientSelectValueInput.value = option.dataset.value;
                 customSelectWrapper.classList.remove('is-open');
@@ -204,7 +199,6 @@
 
         window.addEventListener('click', () => customSelectWrapper.classList.remove('is-open'));
 
-        // 短链接域名
         const shortLinkDomains = [
             'suo.yt', 't.cn', 'bit.ly', 'tinyurl.com', 'short.link',
             'dwz.cn', 'u.nu', 'gg.gg', 'is.gd', 'v.gd',
@@ -212,9 +206,9 @@
             'd1.mk', 'dlj.tf', 'sub.cm'
         ];
 
-        // 主题逻辑与 Meta 标签同步 (解决 Safari 顶部栏颜色)
+        // 核心修复 4：精准更新 theme-color，与 body 背景色 hex 值强制绑定
         function updateThemeMeta(isDark) {
-            // 浅色模式背景 slate-50 (#f8fafc), 深色模式背景 slate-900 (#0f172a)
+            // #0f172a 对应 dark:bg-[#0f172a], #f8fafc 对应 bg-[#f8fafc]
             themeColorMeta.setAttribute('content', isDark ? '#0f172a' : '#f8fafc');
         }
 
@@ -245,7 +239,6 @@
         });
         initTheme();
 
-        // 提示框逻辑
         function showToast(message, type = 'success') {
             const container = document.getElementById('toast-container');
             if (type === 'warning') {
@@ -274,7 +267,6 @@
             setTimeout(() => toast.remove(), 2900);
         }
 
-        // 链接验证与短链接识别
         function isValidUrl(string) {
             if (!string || !string.trim().toLowerCase().startsWith('http')) return false;
             try { new URL(string); return true; } catch (_) { return false; }
@@ -287,7 +279,6 @@
             } catch (_) { return false; }
         }
 
-        // 输入事件处理
         subUrlInput.addEventListener('input', () => {
             const url = subUrlInput.value.trim();
             const canBeValid = isValidUrl(url);
@@ -304,7 +295,6 @@
             }
         });
 
-        // 提交按钮事件
         convertBtn.addEventListener('click', async () => {
             const subUrl = subUrlInput.value.trim();
             if (!isValidUrl(subUrl)) {
@@ -342,7 +332,6 @@
                     showToast(result.message || '生成失败，未知错误', 'error');
                 }
             } catch (error) {
-                // 仅作演示时也可展示假数据
                 showToast('请求失败,请检查网络或联系管理员', 'error');
             } finally {
                 btnLoader.classList.add('hidden');
@@ -354,7 +343,6 @@
             }
         });
 
-        // 复制按钮逻辑
         const copyHandler = (e) => {
             e.stopPropagation();
             const urlToCopy = generatedUrlElem.textContent;
