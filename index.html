@@ -1,12 +1,46 @@
 <!DOCTYPE html>
-<html lang="zh-CN" class="antialiased">
+<html lang="zh-CN" class="antialiased" style="height: 100%; overflow: hidden;">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>订阅转换</title>
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg t='1775239517919' class='icon' viewBox='0 0 1024 1024' version='1.1' xmlns='http://www.w3.org/2000/svg' p-id='1080' width='16' height='16'%3E%3Cpath d='M64.781017 322.002011v335.425585c0 56.431786 34.440654 65.831271 34.440654 65.831271l363.188943 244.517396c56.353312 37.624097 40.702036-43.884608 40.702036-43.884608v-307.209692L64.781017 322.002011z' fill='%2337474F' p-id='1081'%3E%3C/path%3E%3Cpath d='M947.601905 327.653909v335.429073c0 56.426555-34.440654 65.831271-34.440654 65.831271s-306.832143 206.899402-363.188071 244.517395c-56.357672 37.618866-40.702036-43.887223-40.702036-43.887223V622.329501L947.601033 327.653909z' fill='%23455A64' p-id='1082'%3E%3C/path%3E%3Cpath d='M941.950007 322.002011v335.425585c0 56.431786-34.441526 65.831271-34.441526 65.831271s-306.834759 206.902018-363.188071 244.517396c-56.353312 37.624097-40.702036-43.884608-40.702036-43.884608v-307.209692L941.950007 322.002011z' fill='%23455A64' p-id='1083'%3E%3C/path%3E%3Cpath d='M544.093707 40.778668c-25.068199-15.663483-62.657419-15.663483-84.586644 0L83.577371 297.6488c-25.062096 15.668714-25.062096 43.85845 0 59.518445l375.929692 260.011722c25.05948 15.659995 62.657419 15.659995 84.586644 0l379.057331-263.141977c25.068199-15.659995 25.068199-43.85845 0-59.518445l-379.057331-253.739877z' fill='%23546E7A' p-id='1084'%3E%3C/path%3E%3Cpath d='M503.365512 982.930534c-18.833847 0-31.389745-12.041455-31.389745-27.099813v-337.300251c0-15.049639 12.555898-27.099813 31.389745-27.099813s31.389745 12.050174 31.389745 27.099813v334.283347c0 18.075262-12.555898 30.116717-31.389745 30.116717z' fill='%23546E7A' p-id='1085'%3E%3C/path%3E%3Cpath d='M816.321272 535.55691c0 31.363587 3.121536 43.902046-31.293833 65.85743l-78.221501 50.171276c-34.415368 21.955383-46.927669 3.138975-46.927669-25.085638v-81.534863c0-6.26923 0-9.408204-9.390765-15.677434-81.351756-56.449225-394.236889-272.820482-450.556195-313.583555L343.86201 115.352855c40.675878 25.087382 337.910607 222.649206 459.938241 307.314325 6.26051 3.138975 9.390765 9.408204 9.390765 12.547178v100.342552z' fill='%2399AAB5' p-id='1086'%3E%3C/path%3E%3Cpath d='M807.15721 425.945664c-125.201486-84.612802-422.558286-282.035117-460.112629-307.10506l-56.341977 34.471172L199.931309 215.983146c56.340233 40.745633 369.343949 253.838406 450.721863 310.244035 6.26051 3.130255 6.26051 6.26923 6.26051 9.399484l153.373783-106.550746s0-3.130255-3.130255-3.130255z' fill='%23CCD6DD' p-id='1087'%3E%3C/path%3E%3Cpath d='M817.17577 535.173258v-97.037909c0-6.26051-3.138975-9.390765-9.408204-12.521021-125.410751-84.525608-423.273275-281.73081-460.906092-306.773724L281.021484 162.664177c106.603062 71.995868 391.927127 259.819896 467.175321 313.034233 9.408204 6.26051 9.408204 12.521021 9.408204 15.651276V622.820402l31.354868-21.911786c31.354868-21.911786 28.215893-37.563062 28.215893-65.735358z' fill='%23CCD6DD' p-id='1088'%3E%3C/path%3E%3Cpath d='M807.000261 425.71896C681.763897 341.167194 384.337342 143.892237 346.765561 118.840604l-65.744077 43.841011c106.446114 72.022026 391.351648 259.90709 466.49521 313.138866l3.130255 3.130256 65.744078-46.971266c-6.26051-3.130255-6.26051-6.26051-9.390766-6.260511z' fill='%23E1E8ED' p-id='1089'%3E%3C/path%3E%3C/svg%3E">
     
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    <style>
+        [x-cloak] { display: none !important; }
+
+        /* ── 移动端防滚动核心样式 ── */
+        html, body {
+            height: 100%;
+            /* 使用动态视口高度，自动适配移动端地址栏收缩 */
+            height: 100dvh;
+            max-height: 100dvh;
+            overflow: hidden;
+            /* 禁止 iOS Safari 橡皮筋回弹效果 */
+            overscroll-behavior: none;
+            /* 禁止 iOS 长按文字选择导致的意外滚动 */
+            -webkit-overflow-scrolling: auto;
+        }
+
+        /* body 作为全屏弹性容器 */
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* 内容卡片区域：若内容超出屏幕高度则允许内部纵向滚动 */
+        .card-scroll {
+            overflow-y: auto;
+            overflow-x: hidden;
+            overscroll-behavior: contain;
+            -webkit-overflow-scrolling: touch;
+        }
+    </style>
+
+    <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     
     <script>
@@ -22,9 +56,16 @@
     </script>
 </head>
 
+<!--
+    移动端防滚动要点：
+    1. html/body overflow: hidden + height: 100dvh → 锁定视口，禁止整页滚动
+    2. overscroll-behavior: none → 禁止 iOS/Android 橡皮筋/下拉刷新效果
+    3. 卡片容器加 card-scroll 类 → 若内容过长，仅卡片内部可滚动
+    4. viewport meta 加 maximum-scale=1.0, user-scalable=no → 禁止双指缩放触发布局偏移
+-->
 <body x-data="appData()" 
       :class="isDark ? 'dark bg-slate-900 text-slate-100' : 'bg-slate-50 text-slate-900'"
-      class="min-h-screen flex items-center justify-center p-4 relative overflow-x-hidden transition-colors duration-500 font-sans">
+      class="min-h-screen p-4 relative overflow-hidden transition-colors duration-500 font-sans">
 
     <div class="absolute -top-[250px] -right-[250px] w-[500px] h-[500px] bg-primary/20 dark:bg-primary/30 rounded-full blur-[100px] animate-pulse-slow pointer-events-none"></div>
     <div class="absolute -bottom-[200px] -left-[200px] w-[400px] h-[400px] bg-secondary/20 dark:bg-secondary/30 rounded-full blur-[100px] animate-pulse-slow pointer-events-none" style="animation-delay: 4s;"></div>
@@ -45,15 +86,16 @@
         </template>
     </div>
 
-    <div class="w-full max-w-lg p-8 sm:p-10 bg-white/80 dark:bg-slate-800/80 backdrop-blur-xl border border-slate-200/50 dark:border-slate-700/50 rounded-[2rem] shadow-2xl z-10 relative">
+    <!-- 卡片加 card-scroll，确保小屏设备内容可滚动，但整页不滚动 -->
+    <div class="card-scroll w-full max-w-lg p-8 sm:p-10 bg-white/80 dark:bg-slate-800/80 backdrop-blur-xl border border-slate-200/50 dark:border-slate-700/50 rounded-[2rem] shadow-2xl z-10 relative">
         <h1 class="text-3xl font-bold text-center mb-8 bg-gradient-to-br from-primary to-secondary bg-clip-text text-transparent">订阅转换</h1>
 
         <div class="mb-6">
             <label class="block mb-2 text-sm font-semibold text-slate-700 dark:text-slate-300">原始订阅链接</label>
             <input x-model="subUrl" type="url" placeholder="请在此处粘贴原始订阅链接" 
                    class="w-full h-12 px-4 bg-white dark:bg-slate-700/50 border border-slate-300 dark:border-slate-600 rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all placeholder:text-slate-400">
-            <div x-show="isShortLink" x-collapse class="mt-2 px-4 py-2 bg-amber-50 dark:bg-amber-500/10 border border-amber-200 dark:border-amber-500/30 rounded-lg text-amber-600 dark:text-amber-400 text-sm flex items-center gap-2">
-                ⚡ 检测到短链接,将自动解析重定向后的链接
+            <div x-show="isShortLink" x-collapse x-cloak class="mt-2 px-4 py-2 bg-amber-50 dark:bg-amber-500/10 border border-amber-200 dark:border-amber-500/30 rounded-lg text-amber-600 dark:text-amber-400 text-sm flex items-center gap-2">
+                ⚡ 检测到短链接，将自动解析重定向后的链接
             </div>
         </div>
 
@@ -66,7 +108,7 @@
                 <div class="w-2.5 h-2.5 border-l-2 border-b-2 border-slate-400 transform -rotate-45 transition-transform" :class="dropdownOpen ? 'rotate-[135deg] translate-y-0.5' : ''"></div>
             </div>
             
-            <div x-show="dropdownOpen" x-transition.opacity.duration.200ms
+            <div x-show="dropdownOpen" x-transition.opacity.duration.200ms x-cloak
                  class="absolute z-20 w-full mt-2 p-1.5 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl shadow-xl backdrop-blur-xl">
                 <template x-for="opt in options" :key="opt.val">
                     <div @click="client = opt.val; clientName = opt.name; dropdownOpen = false"
@@ -85,7 +127,7 @@
             <span x-text="loading ? '正在生成...' : '生成订阅链接'"></span>
         </button>
 
-        <div x-show="generatedUrl" x-collapse class="mt-6">
+        <div x-show="generatedUrl" x-collapse x-cloak class="mt-6">
             <label class="block mb-2 text-sm font-semibold text-slate-700 dark:text-slate-300">生成结果</label>
             <div @click="copyToClipboard" class="group relative w-full p-4 pr-12 bg-slate-50 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600 hover:border-primary/50 rounded-xl cursor-pointer transition-all break-all text-xs font-mono text-slate-600 dark:text-slate-400 leading-relaxed">
                 <span x-text="generatedUrl"></span>
@@ -114,7 +156,9 @@
                 ],
                 
                 get isValid() { return this.subUrl.trim().toLowerCase().startsWith('http'); },
+                
                 get isShortLink() { 
+                    if (!this.subUrl.trim()) return false;
                     try { return this.shortDomains.some(d => new URL(this.subUrl).hostname.endsWith(d)); } catch { return false; }
                 },
 
