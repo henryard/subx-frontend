@@ -34,13 +34,13 @@
         <svg x-show="isDark" class="w-5 h-5 text-slate-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
     </button>
 
-    <div class="fixed top-6 right-6 z-[100] flex flex-col gap-3 pointer-events-none">
+    <div class="fixed top-20 right-4 sm:right-6 z-[100] flex flex-col gap-3 pointer-events-none items-end w-[calc(100%-2rem)] sm:w-auto">
         <template x-for="toast in toasts" :key="toast.id">
             <div x-transition.opacity.duration.300ms 
                  :class="toast.type === 'error' ? 'bg-red-500' : (toast.type === 'warning' ? 'bg-amber-500' : 'bg-emerald-500')"
-                 class="px-5 py-3 rounded-xl shadow-xl text-white text-sm backdrop-blur flex items-center gap-2 max-w-xs transition-all">
-                <span x-text="toast.type === 'error' ? '✕' : (toast.type === 'warning' ? '⚠' : '✓')" class="font-bold"></span>
-                <span x-text="toast.message" class="whitespace-pre-wrap"></span>
+                 class="px-5 py-3 rounded-xl shadow-xl text-white text-sm backdrop-blur flex items-center gap-2 max-w-sm w-full sm:w-auto transition-all">
+                <span x-text="toast.type === 'error' ? '✕' : (toast.type === 'warning' ? '⚠' : '✓')" class="font-bold flex-shrink-0"></span>
+                <span x-text="toast.message" class="whitespace-pre-wrap flex-grow text-left"></span>
             </div>
         </template>
     </div>
@@ -87,7 +87,7 @@
 
         <div x-show="generatedUrl" x-collapse class="mt-6">
             <label class="block mb-2 text-sm font-semibold text-slate-700 dark:text-slate-300">生成结果</label>
-            <div @click="copyToClipboard" class="group relative w-full p-4 pr-12 bg-slate-50 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600 hover:border-primary/50 rounded-xl cursor-pointer transition-all break-all text-xs font-mono text-slate-600 dark:text-slate-400 leading-relaxed">
+            <div @click="copyToClipboard(generatedUrl, false)" class="group relative w-full p-4 pr-12 bg-slate-50 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600 hover:border-primary/50 rounded-xl cursor-pointer transition-all break-all text-xs font-mono text-slate-600 dark:text-slate-400 leading-relaxed">
                 <span x-text="generatedUrl"></span>
                 <button class="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center bg-primary text-white rounded-lg opacity-0 group-hover:opacity-100 transition-opacity hover:bg-primary-dark">
                     <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
@@ -145,8 +145,9 @@
                         
                         if (res.ok) {
                             this.generatedUrl = data.shortUrl;
-                            this.showToast(`解析成功 (${data.nodeCount}节点)`);
-                            this.copyToClipboard();
+                            this.showToast(`解析成功 (${data.nodeCount || 0}节点)`);
+                            // 传入 true 标识这是异步回调中的自动复制
+                            this.copyToClipboard(this.generatedUrl, true);
                         } else {
                             this.showToast(data.message || '生成失败', 'error');
                         }
@@ -157,11 +158,51 @@
                     }
                 },
 
-                copyToClipboard() {
-                    if(!this.generatedUrl) return;
-                    navigator.clipboard.writeText(this.generatedUrl)
-                        .then(() => this.showToast('链接已复制到剪贴板'))
-                        .catch(() => this.showToast('复制失败，请手动复制', 'error'));
+                // 优化后的降级复制方案
+                async copyToClipboard(textToCopy, isAuto = false) {
+                    const targetText = textToCopy || this.generatedUrl;
+                    if(!targetText) return;
+
+                    try {
+                        // 1. 首选现代 API (但在 Safari 异步上下文中会抛出异常)
+                        if (navigator.clipboard && window.isSecureContext) {
+                            await navigator.clipboard.writeText(targetText);
+                            this.showToast('链接已复制到剪贴板');
+                            return;
+                        }
+                        throw new Error('Clipboard API not supported or blocked');
+                    } catch (err) {
+                        // 2. 降级方案: 创建隐藏的 Textarea 进行复制
+                        try {
+                            const textArea = document.createElement("textarea");
+                            textArea.value = targetText;
+                            
+                            // 避免唤起虚拟键盘或页面滚动
+                            textArea.style.position = "fixed";
+                            textArea.style.top = "-99999px";
+                            textArea.style.left = "-99999px";
+                            textArea.setAttribute('readonly', '');
+                            
+                            document.body.appendChild(textArea);
+                            textArea.select();
+                            
+                            const successful = document.execCommand('copy');
+                            document.body.removeChild(textArea);
+                            
+                            if (successful) {
+                                this.showToast('链接已复制到剪贴板');
+                            } else {
+                                throw new Error('execCommand failed');
+                            }
+                        } catch (fallbackErr) {
+                            // 3. 如果在 Safari 的异步调用中彻底被拦截，优雅提示用户手动点击
+                            if (isAuto) {
+                                this.showToast('已生成，受浏览器限制请点击框体手动复制', 'warning');
+                            } else {
+                                this.showToast('复制失败，请长按文本手动复制', 'error');
+                            }
+                        }
+                    }
                 }
             }));
         });
