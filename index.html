@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="zh-CN" class="scroll-smooth">
+<html lang="zh-CN" class="scroll-smooth bg-slate-50 dark:bg-slate-900">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no">
     <title>订阅转换</title>
     <meta name="theme-color" content="#f8fafc" id="theme-color-meta">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -21,14 +21,14 @@
                         secondary: '#8b5cf6',
                     },
                     animation: {
-                        'slow-pulse': 'pulse-orb 8s ease-in-out infinite',
+                        'slow-pulse': 'pulse-orb 10s ease-in-out infinite',
                         'slide-up': 'slideUp 0.4s ease forwards',
                         'toast': 'slideIn 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards, fadeOut 0.4s ease 2.5s forwards',
                     },
                     keyframes: {
                         'pulse-orb': {
-                            '0%, 100%': { transform: 'scale(1)', opacity: 'var(--orb-opacity, 0.1)' },
-                            '50%': { transform: 'scale(1.1)', opacity: 'calc(var(--orb-opacity, 0.1) * 1.5)' },
+                            '0%, 100%': { transform: 'scale(1)', opacity: '0.5' },
+                            '50%': { transform: 'scale(1.15)', opacity: '1' },
                         },
                         'slideUp': {
                             '0%': { opacity: '0', transform: 'translateY(10px)' },
@@ -50,71 +50,69 @@
     
     <style type="text/tailwindcss">
         @layer utilities {
-            /* 隐藏滚动条但保留功能 */
             .no-scrollbar::-webkit-scrollbar { display: none; }
             .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
         }
-        /* 为光球定义不同主题的透明度基础值 */
-        :root { --orb-opacity: 0.1; }
-        .dark { --orb-opacity: 0.2; }
     </style>
 </head>
 
-<body class="bg-gradient-to-br from-slate-50 to-slate-200 dark:from-slate-900 dark:to-slate-800 text-slate-900 dark:text-slate-100 min-h-screen flex items-center justify-center p-4 sm:p-8 relative overflow-x-hidden transition-colors duration-300 font-sans">
+<body class="text-slate-900 dark:text-slate-100 min-h-[100dvh] flex items-center justify-center p-4 sm:p-8 relative overflow-x-hidden font-sans antialiased selection:bg-primary/30">
 
-    <div class="fixed -top-[250px] -right-[250px] w-[500px] h-[500px] rounded-full bg-indigo-500 blur-[80px] animate-slow-pulse pointer-events-none z-0"></div>
-    <div class="fixed -bottom-[200px] -left-[200px] w-[400px] h-[400px] rounded-full bg-purple-500 blur-[80px] animate-slow-pulse pointer-events-none z-0" style="animation-delay: 4s;"></div>
+    <div class="fixed inset-0 z-[-2] bg-gradient-to-br from-slate-50 to-slate-200 dark:from-slate-900 dark:to-slate-800 transition-colors duration-500"></div>
 
-    <button id="theme-toggle" class="fixed top-6 right-6 z-50 bg-white/90 dark:bg-slate-800/90 border border-slate-300/50 dark:border-white/10 backdrop-blur-md w-11 h-11 rounded-full flex items-center justify-center shadow-sm hover:scale-105 active:scale-95 transition-all duration-300 group" aria-label="切换主题">
-        <svg class="w-[22px] h-[22px] stroke-slate-800 dark:stroke-slate-200 transition-all duration-300 rotate-0 scale-100 dark:-rotate-180 dark:scale-0 absolute" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <div class="fixed top-[-10%] right-[-10%] w-[50vw] h-[50vw] min-w-[300px] min-h-[300px] rounded-full bg-indigo-400/10 dark:bg-indigo-500/10 blur-[100px] sm:blur-[120px] animate-slow-pulse pointer-events-none z-[-1]"></div>
+    <div class="fixed bottom-[-10%] left-[-10%] w-[60vw] h-[60vw] min-w-[350px] min-h-[350px] rounded-full bg-purple-400/10 dark:bg-purple-500/10 blur-[100px] sm:blur-[120px] animate-slow-pulse pointer-events-none z-[-1]" style="animation-delay: -5s;"></div>
+
+    <button id="theme-toggle" class="fixed top-6 right-6 z-50 bg-white/80 dark:bg-slate-800/80 border border-slate-200/50 dark:border-white/10 backdrop-blur-md w-11 h-11 rounded-full flex items-center justify-center shadow-sm hover:scale-105 hover:bg-white dark:hover:bg-slate-800 active:scale-95 transition-all duration-300 group" aria-label="切换主题">
+        <svg class="w-[20px] h-[20px] stroke-slate-700 dark:stroke-slate-300 transition-all duration-300 rotate-0 scale-100 dark:-rotate-180 dark:scale-0 absolute" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
         </svg>
-        <svg class="w-[22px] h-[22px] stroke-slate-800 dark:stroke-slate-200 transition-all duration-300 rotate-180 scale-0 dark:rotate-0 dark:scale-100 absolute" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg class="w-[20px] h-[20px] stroke-slate-700 dark:stroke-slate-300 transition-all duration-300 rotate-180 scale-0 dark:rotate-0 dark:scale-100 absolute" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
         </svg>
     </button>
 
     <div id="toast-container" class="fixed top-6 right-6 sm:top-20 sm:right-6 z-[1000] flex flex-col gap-3 max-w-[calc(100vw-3rem)]"></div>
 
-    <div class="relative z-10 w-full max-w-[520px] bg-white/95 dark:bg-slate-800/90 backdrop-blur-xl border border-slate-300/30 dark:border-white/10 p-6 sm:p-12 rounded-3xl shadow-[0_20px_60px_rgba(0,0,0,0.1)] dark:shadow-[0_20px_60px_rgba(0,0,0,0.4)] transition-all duration-300 my-auto">
-        <h1 class="text-[1.75rem] sm:text-4xl font-bold bg-gradient-to-br from-indigo-400 to-purple-500 bg-clip-text text-transparent text-center mb-8 break-keep">订阅转换</h1>
+    <div class="relative z-10 w-full max-w-[500px] bg-white/90 dark:bg-slate-800/80 backdrop-blur-2xl border border-white/40 dark:border-white/10 p-7 sm:p-10 rounded-3xl shadow-[0_20px_60px_-15px_rgba(0,0,0,0.05)] dark:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.3)] transition-all duration-500 my-auto">
+        <h1 class="text-2xl sm:text-[1.75rem] font-bold bg-gradient-to-br from-indigo-500 to-purple-600 dark:from-indigo-400 dark:to-purple-400 bg-clip-text text-transparent text-center mb-8 break-keep tracking-wide">订阅转换</h1>
 
         <div class="mb-6">
-            <label for="sub-url" class="block mb-3 font-semibold text-sm sm:text-base text-slate-900 dark:text-slate-100">原始订阅链接</label>
+            <label for="sub-url" class="block mb-2.5 font-medium text-sm text-slate-700 dark:text-slate-300">原始订阅链接</label>
             <input type="url" id="sub-url" placeholder="请在此处粘贴原始订阅链接" required
-                class="w-full h-12 sm:h-[52px] px-4 bg-white dark:bg-slate-700/60 border border-slate-300 dark:border-white/20 rounded-xl text-slate-900 dark:text-slate-100 text-base placeholder-slate-400 dark:placeholder-slate-400/60 focus:outline-none focus:border-primary focus:ring-[3px] focus:ring-primary/20 transition-all">
+                class="w-full h-[50px] px-4 bg-white/80 dark:bg-slate-900/50 border border-slate-200 dark:border-white/10 rounded-xl text-slate-900 dark:text-slate-100 text-[15px] placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-indigo-400 dark:focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 dark:focus:ring-indigo-500/20 transition-all">
             
-            <div id="url-info" class="hidden mt-3 px-4 py-3 bg-amber-500/15 border border-amber-500/30 rounded-lg text-sm text-amber-500 items-center gap-2 transition-all">
-                <span class="text-lg leading-none">⚡</span> 检测到短链接,将自动解析重定向后的链接
+            <div id="url-info" class="hidden mt-3 px-4 py-3 bg-amber-500/10 border border-amber-500/20 rounded-lg text-[13px] text-amber-600 dark:text-amber-400 items-center gap-2 transition-all">
+                <span class="text-base leading-none">⚡</span> 检测到短链接,将自动解析重定向后的链接
             </div>
         </div>
 
-        <div class="mb-7 group" id="custom-select-wrapper">
-            <label class="block mb-3 font-semibold text-sm sm:text-base text-slate-900 dark:text-slate-100">目标客户端</label>
+        <div class="mb-8 group" id="custom-select-wrapper">
+            <label class="block mb-2.5 font-medium text-sm text-slate-700 dark:text-slate-300">目标客户端</label>
             <div class="relative" id="custom-select-container">
-                <div class="select-trigger flex items-center justify-between w-full h-12 sm:h-[52px] px-4 bg-white dark:bg-slate-700/60 border border-slate-300 dark:border-white/20 rounded-xl text-base cursor-pointer select-none transition-all group-[.disabled]:opacity-60 group-[.disabled]:cursor-not-allowed group-[.is-open]:border-primary group-[.is-open]:ring-[3px] group-[.is-open]:ring-primary/20" tabindex="0">
+                <div class="select-trigger flex items-center justify-between w-full h-[50px] px-4 bg-white/80 dark:bg-slate-900/50 border border-slate-200 dark:border-white/10 rounded-xl text-[15px] cursor-pointer select-none transition-all group-[.disabled]:opacity-50 group-[.disabled]:cursor-not-allowed group-[.is-open]:border-indigo-400 dark:group-[.is-open]:border-indigo-500 group-[.is-open]:ring-4 group-[.is-open]:ring-indigo-500/10 dark:group-[.is-open]:ring-indigo-500/20" tabindex="0">
                     <span id="selected-option-text">Clash (Meta)</span>
-                    <div class="w-2 h-2 border-l-2 border-b-2 border-slate-500 dark:border-slate-400 -rotate-45 transition-transform duration-200 transform group-[.is-open]:translate-y-[2px] group-[.is-open]:rotate-[135deg]"></div>
+                    <div class="w-[9px] h-[9px] border-l-[2px] border-b-[2px] border-slate-400 dark:border-slate-500 -rotate-45 transition-transform duration-300 transform group-[.is-open]:translate-y-[2px] group-[.is-open]:rotate-[135deg]"></div>
                 </div>
                 
-                <div class="absolute top-[calc(100%+8px)] left-0 right-0 z-20 bg-white/95 dark:bg-slate-800/95 backdrop-blur-xl border border-slate-200 dark:border-white/10 rounded-xl p-1.5 shadow-xl opacity-0 invisible -translate-y-2 group-[.is-open]:opacity-100 group-[.is-open]:visible group-[.is-open]:translate-y-0 transition-all duration-200">
-                    <div class="custom-option flex items-center justify-between px-3.5 py-3 rounded-lg cursor-pointer text-[15px] text-slate-600 dark:text-slate-300 hover:bg-indigo-50 dark:hover:bg-indigo-500/10 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors selected text-primary dark:text-indigo-400 font-semibold" data-value="c">
+                <div class="absolute top-[calc(100%+8px)] left-0 right-0 z-20 bg-white/95 dark:bg-slate-800/95 backdrop-blur-xl border border-slate-100 dark:border-white/10 rounded-xl p-1.5 shadow-xl opacity-0 invisible -translate-y-2 group-[.is-open]:opacity-100 group-[.is-open]:visible group-[.is-open]:translate-y-0 transition-all duration-200">
+                    <div class="custom-option flex items-center justify-between px-4 py-3 rounded-lg cursor-pointer text-[14px] text-slate-600 dark:text-slate-300 hover:bg-indigo-50 dark:hover:bg-indigo-500/10 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors selected text-primary dark:text-indigo-400 font-semibold" data-value="c">
                         <span>Clash (Meta)</span>
                         <svg class="checkmark w-[18px] h-[18px] stroke-current opacity-100 scale-100 transition-all" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
                     </div>
-                    <div class="custom-option flex items-center justify-between px-3.5 py-3 rounded-lg cursor-pointer text-[15px] text-slate-600 dark:text-slate-300 hover:bg-indigo-50 dark:hover:bg-indigo-500/10 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors" data-value="x">
+                    <div class="custom-option flex items-center justify-between px-4 py-3 rounded-lg cursor-pointer text-[14px] text-slate-600 dark:text-slate-300 hover:bg-indigo-50 dark:hover:bg-indigo-500/10 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors" data-value="x">
                         <span>Sing-Box</span>
                         <svg class="checkmark w-[18px] h-[18px] stroke-current opacity-0 scale-75 transition-all" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
                     </div>
-                    <div class="custom-option flex items-center justify-between px-3.5 py-3 rounded-lg cursor-pointer text-[15px] text-slate-600 dark:text-slate-300 hover:bg-indigo-50 dark:hover:bg-indigo-500/10 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors" data-value="g">
+                    <div class="custom-option flex items-center justify-between px-4 py-3 rounded-lg cursor-pointer text-[14px] text-slate-600 dark:text-slate-300 hover:bg-indigo-50 dark:hover:bg-indigo-500/10 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors" data-value="g">
                         <span>Surge</span>
                         <svg class="checkmark w-[18px] h-[18px] stroke-current opacity-0 scale-75 transition-all" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
                     </div>
-                    <div class="custom-option flex items-center justify-between px-3.5 py-3 rounded-lg cursor-pointer text-[15px] text-slate-600 dark:text-slate-300 hover:bg-indigo-50 dark:hover:bg-indigo-500/10 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors" data-value="s">
+                    <div class="custom-option flex items-center justify-between px-4 py-3 rounded-lg cursor-pointer text-[14px] text-slate-600 dark:text-slate-300 hover:bg-indigo-50 dark:hover:bg-indigo-500/10 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors" data-value="s">
                         <span>Shadowrocket</span>
                         <svg class="checkmark w-[18px] h-[18px] stroke-current opacity-0 scale-75 transition-all" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
                     </div>
-                    <div class="custom-option flex items-center justify-between px-3.5 py-3 rounded-lg cursor-pointer text-[15px] text-slate-600 dark:text-slate-300 hover:bg-indigo-50 dark:hover:bg-indigo-500/10 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors" data-value="l">
+                    <div class="custom-option flex items-center justify-between px-4 py-3 rounded-lg cursor-pointer text-[14px] text-slate-600 dark:text-slate-300 hover:bg-indigo-50 dark:hover:bg-indigo-500/10 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors" data-value="l">
                         <span>Loon</span>
                         <svg class="checkmark w-[18px] h-[18px] stroke-current opacity-0 scale-75 transition-all" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
                     </div>
@@ -123,18 +121,18 @@
             <input type="hidden" id="client-select-value" value="c">
         </div>
 
-        <button id="convert-btn" disabled class="group relative overflow-hidden w-full h-12 sm:h-[52px] bg-gradient-to-br from-primary to-secondary text-white font-semibold rounded-xl flex items-center justify-center gap-2 transition-all duration-300 disabled:opacity-60 disabled:cursor-not-allowed hover:not(:disabled):-translate-y-0.5 hover:not(:disabled):shadow-[0_10px_30px_rgba(99,102,241,0.4)] active:not(:disabled):translate-y-0 text-base">
-            <div class="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:not(:disabled):translate-x-full transition-transform duration-500 ease-in-out"></div>
-            <div id="btn-loader" class="hidden w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
-            <span id="btn-text">生成订阅链接</span>
+        <button id="convert-btn" disabled class="group relative overflow-hidden w-full h-[52px] bg-gradient-to-r from-indigo-500 to-purple-500 text-white font-medium rounded-xl flex items-center justify-center gap-2 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed hover:not(:disabled):-translate-y-0.5 hover:not(:disabled):shadow-[0_10px_20px_-10px_rgba(99,102,241,0.6)] active:not(:disabled):translate-y-0 text-[15px]">
+            <div class="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:not(:disabled):translate-x-full transition-transform duration-700 ease-in-out"></div>
+            <div id="btn-loader" class="hidden w-[18px] h-[18px] border-[2px] border-white/30 border-t-white rounded-full animate-spin"></div>
+            <span id="btn-text" class="tracking-wide">生成订阅链接</span>
         </button>
 
         <div id="result-wrapper" class="hidden mt-8 animate-slide-up">
-            <label class="block mb-3 font-semibold text-sm sm:text-base text-slate-900 dark:text-slate-100">生成结果</label>
-            <div id="result" class="relative flex items-center gap-3 w-full min-h-[52px] bg-white dark:bg-slate-700/60 border border-slate-300 dark:border-white/20 p-4 pr-14 sm:pr-16 rounded-xl cursor-pointer hover:border-indigo-400 transition-colors break-all group/result">
-                <code id="generated-url" class="font-mono text-xs sm:text-[0.85rem] text-slate-600 dark:text-slate-300 leading-relaxed flex-1"></code>
-                <button id="copy-btn-inside" class="absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-9 sm:h-9 bg-primary hover:bg-primary-dark text-white rounded-lg flex items-center justify-center transition-all hover:scale-105 active:scale-95 z-10">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <label class="block mb-2.5 font-medium text-sm text-slate-700 dark:text-slate-300">生成结果</label>
+            <div id="result" class="relative flex items-center gap-3 w-full min-h-[50px] bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-white/10 p-3.5 pr-14 rounded-xl cursor-pointer hover:border-indigo-400 dark:hover:border-indigo-500 transition-colors break-all group/result">
+                <code id="generated-url" class="font-mono text-[13px] text-slate-600 dark:text-slate-300 leading-relaxed flex-1"></code>
+                <button id="copy-btn-inside" class="absolute right-2 top-1/2 -translate-y-1/2 w-[34px] h-[34px] bg-white dark:bg-slate-700 shadow-sm border border-slate-200 dark:border-white/10 hover:border-indigo-400 dark:hover:border-indigo-500 text-slate-600 dark:text-slate-300 rounded-lg flex items-center justify-center transition-all hover:text-indigo-500 z-10 active:scale-95">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
                         <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
                     </svg>
@@ -214,19 +212,23 @@
             'd1.mk', 'dlj.tf', 'sub.cm'
         ];
 
-        // 主题逻辑
+        // 主题逻辑与 Meta 标签同步 (解决 Safari 顶部栏颜色)
+        function updateThemeMeta(isDark) {
+            // 浅色模式背景 slate-50 (#f8fafc), 深色模式背景 slate-900 (#0f172a)
+            themeColorMeta.setAttribute('content', isDark ? '#0f172a' : '#f8fafc');
+        }
+
         function initTheme() {
             const savedTheme = localStorage.getItem('theme');
             const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-            const defaultTheme = savedTheme || (prefersDark ? 'dark' : 'light');
+            const isDark = savedTheme === 'dark' || (!savedTheme && prefersDark);
 
-            if (defaultTheme === 'dark') {
+            if (isDark) {
                 document.documentElement.classList.add('dark');
-                themeColorMeta.setAttribute('content', '#0f172a');
             } else {
                 document.documentElement.classList.remove('dark');
-                themeColorMeta.setAttribute('content', '#f8fafc');
             }
+            updateThemeMeta(isDark);
         }
 
         themeToggle.addEventListener('click', () => {
@@ -234,42 +236,39 @@
             if (isDark) {
                 document.documentElement.classList.remove('dark');
                 localStorage.setItem('theme', 'light');
-                themeColorMeta.setAttribute('content', '#f8fafc');
+                updateThemeMeta(false);
             } else {
                 document.documentElement.classList.add('dark');
                 localStorage.setItem('theme', 'dark');
-                themeColorMeta.setAttribute('content', '#0f172a');
+                updateThemeMeta(true);
             }
         });
         initTheme();
 
-        // 提示框逻辑 (适配 Tailwind)
+        // 提示框逻辑
         function showToast(message, type = 'success') {
             const container = document.getElementById('toast-container');
             if (type === 'warning') {
-                const existingToasts = container.querySelectorAll('.is-warning');
-                existingToasts.forEach(t => t.remove());
+                container.querySelectorAll('.is-warning').forEach(t => t.remove());
             }
 
             const toast = document.createElement('div');
-            
-            // 基础样式
-            let classes = 'flex items-center gap-3 px-5 py-4 rounded-xl text-white shadow-2xl backdrop-blur-md animate-toast text-[14px] font-medium whitespace-pre-wrap ';
+            let classes = 'flex items-center gap-3 px-4 py-3 rounded-xl text-white shadow-lg backdrop-blur-md animate-toast text-[13px] sm:text-[14px] font-medium whitespace-pre-wrap ';
             let icon = '';
 
             if (type === 'error') {
-                classes += 'bg-red-500/95';
+                classes += 'bg-red-500/90';
                 icon = '✕';
             } else if (type === 'warning') {
-                classes += 'bg-amber-500/95 is-warning';
+                classes += 'bg-amber-500/90 is-warning';
                 icon = '⚠';
             } else {
-                classes += 'bg-emerald-500/95';
+                classes += 'bg-emerald-500/90';
                 icon = '✓';
             }
 
             toast.className = classes;
-            toast.innerHTML = `<span class="text-lg font-bold leading-none">${icon}</span><span>${message}</span>`;
+            toast.innerHTML = `<span class="text-base font-bold leading-none">${icon}</span><span>${message}</span>`;
             
             container.appendChild(toast);
             setTimeout(() => toast.remove(), 2900);
@@ -313,7 +312,6 @@
                 return;
             }
 
-            // UI 加载状态
             showToast('正在生成订阅链接...', 'warning');
             btnLoader.classList.remove('hidden');
             btnText.classList.add('hidden');
@@ -344,9 +342,9 @@
                     showToast(result.message || '生成失败，未知错误', 'error');
                 }
             } catch (error) {
+                // 仅作演示时也可展示假数据
                 showToast('请求失败,请检查网络或联系管理员', 'error');
             } finally {
-                // 恢复按钮状态
                 btnLoader.classList.add('hidden');
                 btnText.classList.remove('hidden');
                 if (isValidUrl(subUrlInput.value.trim())) {
@@ -369,13 +367,6 @@
         resultBox.addEventListener('click', copyHandler);
         copyBtnInside.addEventListener('click', copyHandler);
 
-        // 禁用移动端双击缩放
-        let lastTouchEnd = 0;
-        document.addEventListener('touchend', (e) => {
-            const now = Date.now();
-            if (now - lastTouchEnd <= 300) e.preventDefault();
-            lastTouchEnd = now;
-        }, { passive: false });
     </script>
 </body>
 </html>
