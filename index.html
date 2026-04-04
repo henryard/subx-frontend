@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
-
+<html lang="zh-CN" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -8,824 +7,134 @@
     <meta name="theme-color" content="#f8fafc" id="theme-color-meta">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <link rel="icon"
-        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔗</text></svg>">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --primary: #6366f1;
-            --primary-dark: #4f46e5;
-            --primary-light: #818cf8;
-            --secondary: #8b5cf6;
-            --success: #10b981;
-            --error: #ef4444;
-            --warning: #f59e0b;
-            --transition: all 0.3s ease;
-            --bg-gradient-start: #f8fafc;
-            --bg-gradient-end: #e2e8f0;
-            /* --- 优化点：加深背景色，提高不透明度 --- */
-            --card-bg: rgba(255, 255, 255, 0.95);
-            --card-border: rgba(148, 163, 184, 0.2);
-            --text-primary: #0f172a;
-            --text-secondary: #475569;
-            --input-bg: #ffffff;
-            --input-border: #cbd5e1;
-            --shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
-            --orb-opacity: 0.08;
-        }
-
-        [data-theme="dark"] {
-            --bg-gradient-start: #0f172a;
-            --bg-gradient-end: #1e293b;
-            /* --- 优化点：加深背景色，提高不透明度 --- */
-            --card-bg: rgba(30, 41, 59, 0.9);
-            --card-border: rgba(255, 255, 255, 0.1);
-            --text-primary: #f1f5f9;
-            --text-secondary: #cbd5e1;
-            --input-bg: rgba(51, 65, 85, 0.6);
-            --input-border: rgba(255, 255, 255, 0.2);
-            --shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
-            --orb-opacity: 0.15;
-        }
-
-        html {
-            -webkit-tap-highlight-color: transparent;
-            -webkit-text-size-adjust: 100%;
-            overflow-x: hidden;
-            width: 100%;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
-            min-height: 100vh;
-            width: 100%;
-            max-width: 100vw;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
-            background-attachment: fixed;
-            color: var(--text-primary);
-            padding: 2rem;
-            margin: 0;
-            position: relative;
-            overflow-x: hidden;
-            overflow-y: auto;
-            transition: var(--transition);
-        }
-
-        body.has-overflow {
-            align-items: flex-start;
-            padding-top: 4rem;
-        }
-
-        body::before {
-            content: '';
-            position: absolute;
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
-            top: -250px;
-            right: -250px;
-            opacity: var(--orb-opacity);
-            animation: pulse 8s ease-in-out infinite;
-        }
-
-        body::after {
-            content: '';
-            position: absolute;
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, var(--secondary) 0%, transparent 70%);
-            bottom: -200px;
-            left: -200px;
-            opacity: var(--orb-opacity);
-            animation: pulse 8s ease-in-out infinite 4s;
-        }
-
-        @keyframes pulse {
-
-            0%,
-            100% {
-                transform: scale(1);
-                opacity: var(--orb-opacity);
-            }
-
-            50% {
-                transform: scale(1.1);
-                opacity: calc(var(--orb-opacity) * 1.3);
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔗</text></svg>">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#6366f1',
+                        secondary: '#8b5cf6',
+                    },
+                    animation: {
+                        'slow-pulse': 'pulse-orb 8s ease-in-out infinite',
+                        'slide-up': 'slideUp 0.4s ease forwards',
+                        'toast': 'slideIn 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards, fadeOut 0.4s ease 2.5s forwards',
+                    },
+                    keyframes: {
+                        'pulse-orb': {
+                            '0%, 100%': { transform: 'scale(1)', opacity: 'var(--orb-opacity, 0.1)' },
+                            '50%': { transform: 'scale(1.1)', opacity: 'calc(var(--orb-opacity, 0.1) * 1.5)' },
+                        },
+                        'slideUp': {
+                            '0%': { opacity: '0', transform: 'translateY(10px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        'slideIn': {
+                            '0%': { opacity: '0', transform: 'translateX(100%)' },
+                            '100%': { opacity: '1', transform: 'translateX(0)' },
+                        },
+                        'fadeOut': {
+                            '0%': { opacity: '1', transform: 'translateX(0)' },
+                            '100%': { opacity: '0', transform: 'translateX(100%)' },
+                        }
+                    }
+                }
             }
         }
-
-        .theme-toggle {
-            position: absolute;
-            top: 2rem;
-            right: 2rem;
-            z-index: 1000;
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            backdrop-filter: blur(10px);
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: var(--transition);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
-
-        .theme-toggle:hover {
-            transform: scale(1.05);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-        }
-
-        .theme-toggle:active {
-            transform: scale(0.95);
-        }
-
-        .theme-toggle svg {
-            width: 22px;
-            height: 22px;
-            stroke: var(--text-primary);
-            transition: var(--transition);
-        }
-
-        .theme-icon {
-            position: absolute;
-            transition: opacity 0.3s ease, transform 0.3s ease;
-        }
-
-        .sun-icon {
-            opacity: 1;
-            transform: rotate(0deg);
-        }
-
-        .moon-icon {
-            opacity: 0;
-            transform: rotate(180deg);
-        }
-
-        [data-theme="dark"] .sun-icon {
-            opacity: 0;
-            transform: rotate(180deg);
-        }
-
-        [data-theme="dark"] .moon-icon {
-            opacity: 1;
-            transform: rotate(0deg);
-        }
-
-        .container {
-            background: var(--card-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--card-border);
-            padding: 3rem;
-            border-radius: 24px;
-            box-shadow: var(--shadow);
-            width: 100%;
-            max-width: 520px;
-            position: relative;
-            z-index: 1;
-            transition: var(--transition);
-            margin: 0 auto;
-            box-sizing: border-box;
-        }
-
-        h1 {
-            font-size: 2.25rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, var(--primary-light), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 0.5rem;
-            text-align: center;
-        }
-
-        .subtitle {
-            text-align: center;
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-            margin-bottom: 2.5rem;
-        }
-
-        .form-group {
-            margin-bottom: 1.75rem;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 0.75rem;
-            font-weight: 600;
-            color: var(--text-primary);
-            font-size: 0.95rem;
-        }
-
-        input[type="url"] {
-            width: 100%;
-            height: 52px;
-            padding: 0 1rem;
-            background: var(--input-bg);
-            border: 1px solid var(--input-border);
-            border-radius: 12px;
-            color: var(--text-primary);
-            font-size: 16px;
-            transition: var(--transition);
-            -webkit-appearance: none;
-            appearance: none;
-            box-sizing: border-box;
-        }
-
-        input[type="url"]:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
-            outline: none;
-        }
-
-        input[type="url"]::placeholder {
-            color: var(--text-secondary);
-            opacity: 0.6;
-        }
-
-        button {
-            width: 100%;
-            height: 52px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            border: none;
-            border-radius: 12px;
-            cursor: pointer;
-            font-size: 1rem;
-            font-weight: 600;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            position: relative;
-            overflow: hidden;
-            touch-action: manipulation;
-        }
-
-        button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.5s;
-        }
-
-        button:hover:not(:disabled)::before {
-            left: 100%;
-        }
-
-        button:hover:not(:disabled) {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4);
-        }
-
-        button:active:not(:disabled) {
-            transform: translateY(0);
-        }
-
-        button:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
-
-        .loader {
-            width: 20px;
-            height: 20px;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            border-top-color: white;
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-            display: none;
-        }
-
-        button.loading .loader {
-            display: block;
-        }
-
-        button.loading span {
-            display: none;
-        }
-
-        @keyframes spin {
-            to {
-                transform: rotate(360deg);
-            }
-        }
-
-        .result-container {
-            margin-top: 2rem;
-            display: none;
-            animation: slideUp 0.4s ease;
-        }
-
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        #result {
-            background: var(--input-bg);
-            border: 1px solid var(--input-border);
-            padding: 1rem;
-            border-radius: 12px;
-            position: relative;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            min-height: 52px;
-            cursor: pointer;
-            transition: var(--transition);
-            width: 100%;
-            box-sizing: border-box;
-            overflow-wrap: break-word;
-            word-wrap: break-word;
-        }
-
-        #result:hover {
-            border-color: var(--primary-light);
-        }
-
-        #generated-url {
-            font-family: 'SF Mono', 'Consolas', 'Menlo', monospace;
-            font-size: 0.85rem;
-            word-break: break-all;
-            flex: 1;
-            color: var(--text-secondary);
-            line-height: 1.5;
-        }
-
-        #copy-btn-inside {
-            position: absolute;
-            right: 1rem;
-            top: 50%;
-            transform: translateY(-50%);
-            background: var(--primary);
-            color: white;
-            border: none;
-            width: 36px;
-            height: 36px;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: var(--transition);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            padding: 0;
-        }
-
-        #copy-btn-inside:hover {
-            background: var(--primary-dark);
-            transform: translateY(-50%) scale(1.05);
-        }
-
-        #copy-btn-inside:active {
-            transform: translateY(-50%) scale(0.95);
-        }
-
-        .url-info {
-            margin-top: 0.75rem;
-            padding: 0.875rem 1rem;
-            background: rgba(245, 158, 11, 0.15);
-            border: 1px solid rgba(245, 158, 11, 0.3);
-            border-radius: 10px;
-            font-size: 0.875rem;
-            color: var(--warning);
-            display: none;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .url-info.show {
-            display: flex;
-        }
-
-        .url-info::before {
-            content: '⚡';
-            font-size: 1.1rem;
-        }
-
-        /* ++ 自定义下拉选择框样式 ++ */
-        .custom-select-wrapper {
-            position: relative;
-        }
-
-        .custom-select {
-            position: relative;
-        }
-
-        .custom-select-wrapper.disabled .custom-select__trigger {
-            opacity: 0.6;
-            cursor: not-allowed;
-            background-color: var(--input-bg);
-        }
-
-        /* 触发器样式（看起来像输入框） */
-        .custom-select__trigger {
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            width: 100%;
-            height: 52px;
-            padding: 0 1rem;
-            background: var(--input-bg);
-            border: 1px solid var(--input-border);
-            border-radius: 12px;
-            color: var(--text-primary);
-            font-size: 16px;
-            cursor: pointer;
-            transition: var(--transition);
-            user-select: none;
-        }
-
-        .custom-select.open>.custom-select__trigger {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
-        }
-
-        /* 自定义箭头 */
-        .arrow {
-            position: relative;
-            height: 8px;
-            width: 8px;
-            border-left: 2px solid var(--text-secondary);
-            border-bottom: 2px solid var(--text-secondary);
-            transform: rotate(-45deg);
-            transition: all 0.2s ease;
-        }
-
-        .custom-select.open .arrow {
-            transform: translateY(2px) rotate(135deg);
-        }
-
-        /* 选项面板 */
-        .custom-options {
-            position: absolute;
-            top: calc(100% + 8px);
-            left: 0;
-            right: 0;
-            z-index: 10;
-            background: var(--card-bg);
-
-            -webkit-backdrop-filter: blur(16px);
-            backdrop-filter: blur(16px);
-
-            border-radius: 12px;
-            border: 1px solid var(--card-border);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            padding: 6px;
-
-            /* 交互效果 */
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(-10px);
-            transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
-        }
-
-        .custom-select.open .custom-options {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-        }
-
-        /* 单个选项 */
-        .custom-option {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 12px 14px;
-            cursor: pointer;
-            transition: background-color 0.2s ease, color 0.2s ease;
-            font-size: 15px;
-            color: var(--text-secondary);
-            border-radius: 8px;
-        }
-
-        .custom-option:hover {
-            background-color: rgba(99, 102, 241, 0.1);
-            color: var(--primary-dark);
-        }
-
-        [data-theme="dark"] .custom-option:hover {
-            color: var(--primary-light);
-        }
-
-        /* 选中项的样式 */
-        .custom-option.selected {
-            font-weight: 600;
-            color: var(--primary);
-        }
-
-        [data-theme="dark"] .custom-option.selected {
-            color: var(--primary-light);
-        }
-
-        /* 对勾图标 */
-        .custom-option .checkmark {
-            stroke: var(--primary);
-            opacity: 0;
-            transform: scale(0.8);
-            transition: all 0.2s ease;
-        }
-
-        [data-theme="dark"] .custom-option .checkmark {
-            stroke: var(--primary-light);
-        }
-
-        .custom-option.selected .checkmark {
-            opacity: 1;
-            transform: scale(1);
-        }
-
-        /* -- 自定义下拉选择框样式结束 -- */
-
-        .toast-container {
-            position: fixed;
-            top: 2rem;
-            right: 2rem;
-            z-index: 1000;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            max-width: calc(100vw - 4rem);
-        }
-
-        .toast {
-            background: var(--success);
-            color: white;
-            padding: 1rem 1.25rem;
-            border-radius: 12px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-            opacity: 0;
-            transform: translateX(100%);
-            animation: slideIn 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards,
-                fadeOut 0.4s ease 2.5s forwards;
-            max-width: 320px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 0.9rem;
-            backdrop-filter: blur(10px);
-            white-space: pre-wrap;
-        }
-
-        .toast.error {
-            background: var(--error);
-        }
-
-        .toast.warning {
-            background: var(--warning);
-        }
-
-        .toast::before {
-            content: '✓';
-            font-size: 1.2rem;
-            font-weight: bold;
-        }
-
-        .toast.error::before {
-            content: '✕';
-        }
-
-        .toast.warning::before {
-            content: '⚠';
-        }
-
-        @keyframes slideIn {
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        @keyframes fadeOut {
-            to {
-                opacity: 0;
-                transform: translateX(100%);
-            }
-        }
-
-        @media (max-width: 600px) {
-
-            html,
-            body {
-                width: 100%;
-                max-width: 100vw;
-                overflow-x: hidden;
-            }
-
-            body {
-                padding: 0;
-                min-height: 100vh;
-                min-height: -webkit-fill-available;
-            }
-
-            body.has-overflow {
-                padding-top: 5rem;
-                padding-bottom: 2rem;
-                min-height: auto;
-            }
-
-            .container {
-                padding: 2rem 1.5rem;
-                border-radius: 20px;
-                max-width: 80%;
-                width: 80%;
-                margin: 0 auto;
-            }
-
-            h1 {
-                font-size: 1.75rem;
-                word-break: keep-all;
-            }
-
-            .subtitle {
-                font-size: 0.875rem;
-            }
-
-            .form-group {
-                margin-bottom: 1.5rem;
-            }
-
-            label {
-                font-size: 0.9rem;
-            }
-
-            input[type="url"],
-            .custom-select__trigger,
-            button {
-                font-size: 16px;
-                height: 48px;
-            }
-
-            .theme-toggle {
-                top: 1.5rem;
-                right: 10%;
-                width: 40px;
-                height: 40px;
-            }
-
-            .theme-toggle svg {
-                width: 20px;
-                height: 20px;
-            }
-
-            .toast-container {
-                right: 10%;
-                top: 1.5rem;
-                max-width: 80%;
-            }
-
-            .toast {
-                max-width: 100%;
-                font-size: 0.85rem;
-                padding: 0.875rem 1rem;
-            }
-
-            #generated-url {
-                font-size: 0.75rem;
-                word-break: break-all;
-                overflow-wrap: anywhere;
-            }
-
-            #copy-btn-inside {
-                width: 32px;
-                height: 32px;
-                right: 0.75rem;
-            }
-
-            #result {
-                padding: 0.875rem 3rem 0.875rem 0.875rem;
-            }
-        }
+    </script>
+    
+    <style type="text/tailwindcss">
+        @layer utilities {
+            /* 隐藏滚动条但保留功能 */
+            .no-scrollbar::-webkit-scrollbar { display: none; }
+            .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        }
+        /* 为光球定义不同主题的透明度基础值 */
+        :root { --orb-opacity: 0.1; }
+        .dark { --orb-opacity: 0.2; }
     </style>
 </head>
 
-<body>
-    <button class="theme-toggle" id="theme-toggle" aria-label="切换主题">
-        <svg class="theme-icon sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="5"></circle>
-            <line x1="12" y1="1" x2="12" y2="3"></line>
-            <line x1="12" y1="21" x2="12" y2="23"></line>
-            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-            <line x1="1" y1="12" x2="3" y2="12"></line>
-            <line x1="21" y1="12" x2="23" y2="12"></line>
-            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+<body class="bg-gradient-to-br from-slate-50 to-slate-200 dark:from-slate-900 dark:to-slate-800 text-slate-900 dark:text-slate-100 min-h-screen flex items-center justify-center p-4 sm:p-8 relative overflow-x-hidden transition-colors duration-300 font-sans">
+
+    <div class="fixed -top-[250px] -right-[250px] w-[500px] h-[500px] rounded-full bg-indigo-500 blur-[80px] animate-slow-pulse pointer-events-none z-0"></div>
+    <div class="fixed -bottom-[200px] -left-[200px] w-[400px] h-[400px] rounded-full bg-purple-500 blur-[80px] animate-slow-pulse pointer-events-none z-0" style="animation-delay: 4s;"></div>
+
+    <button id="theme-toggle" class="fixed top-6 right-6 z-50 bg-white/90 dark:bg-slate-800/90 border border-slate-300/50 dark:border-white/10 backdrop-blur-md w-11 h-11 rounded-full flex items-center justify-center shadow-sm hover:scale-105 active:scale-95 transition-all duration-300 group" aria-label="切换主题">
+        <svg class="w-[22px] h-[22px] stroke-slate-800 dark:stroke-slate-200 transition-all duration-300 rotate-0 scale-100 dark:-rotate-180 dark:scale-0 absolute" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
         </svg>
-        <svg class="theme-icon moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg class="w-[22px] h-[22px] stroke-slate-800 dark:stroke-slate-200 transition-all duration-300 rotate-180 scale-0 dark:rotate-0 dark:scale-100 absolute" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
         </svg>
     </button>
 
-    <div id="toast-container" class="toast-container"></div>
+    <div id="toast-container" class="fixed top-6 right-6 sm:top-20 sm:right-6 z-[1000] flex flex-col gap-3 max-w-[calc(100vw-3rem)]"></div>
 
-    <div class="container">
-        <h1>订阅转换</h1>
-        <br>
+    <div class="relative z-10 w-full max-w-[520px] bg-white/95 dark:bg-slate-800/90 backdrop-blur-xl border border-slate-300/30 dark:border-white/10 p-6 sm:p-12 rounded-3xl shadow-[0_20px_60px_rgba(0,0,0,0.1)] dark:shadow-[0_20px_60px_rgba(0,0,0,0.4)] transition-all duration-300 my-auto">
+        <h1 class="text-[1.75rem] sm:text-4xl font-bold bg-gradient-to-br from-indigo-400 to-purple-500 bg-clip-text text-transparent text-center mb-8 break-keep">订阅转换</h1>
 
-        <div class="form-group">
-            <label for="sub-url">原始订阅链接</label>
-            <input type="url" id="sub-url" placeholder="请在此处粘贴原始订阅链接" required>
-            <div id="url-info" class="url-info">
-                检测到短链接,将自动解析重定向后的链接
+        <div class="mb-6">
+            <label for="sub-url" class="block mb-3 font-semibold text-sm sm:text-base text-slate-900 dark:text-slate-100">原始订阅链接</label>
+            <input type="url" id="sub-url" placeholder="请在此处粘贴原始订阅链接" required
+                class="w-full h-12 sm:h-[52px] px-4 bg-white dark:bg-slate-700/60 border border-slate-300 dark:border-white/20 rounded-xl text-slate-900 dark:text-slate-100 text-base placeholder-slate-400 dark:placeholder-slate-400/60 focus:outline-none focus:border-primary focus:ring-[3px] focus:ring-primary/20 transition-all">
+            
+            <div id="url-info" class="hidden mt-3 px-4 py-3 bg-amber-500/15 border border-amber-500/30 rounded-lg text-sm text-amber-500 items-center gap-2 transition-all">
+                <span class="text-lg leading-none">⚡</span> 检测到短链接,将自动解析重定向后的链接
             </div>
         </div>
 
-        <div class="form-group">
-            <label for="client-select-value">目标客户端</label>
-            <div class="custom-select-wrapper" id="custom-select-wrapper">
-                <div class="custom-select" id="custom-select-container">
-                    <div class="custom-select__trigger" tabindex="0">
-                        <span id="selected-option-text">Clash (Meta)</span>
-                        <div class="arrow"></div>
+        <div class="mb-7 group" id="custom-select-wrapper">
+            <label class="block mb-3 font-semibold text-sm sm:text-base text-slate-900 dark:text-slate-100">目标客户端</label>
+            <div class="relative" id="custom-select-container">
+                <div class="select-trigger flex items-center justify-between w-full h-12 sm:h-[52px] px-4 bg-white dark:bg-slate-700/60 border border-slate-300 dark:border-white/20 rounded-xl text-base cursor-pointer select-none transition-all group-[.disabled]:opacity-60 group-[.disabled]:cursor-not-allowed group-[.is-open]:border-primary group-[.is-open]:ring-[3px] group-[.is-open]:ring-primary/20" tabindex="0">
+                    <span id="selected-option-text">Clash (Meta)</span>
+                    <div class="w-2 h-2 border-l-2 border-b-2 border-slate-500 dark:border-slate-400 -rotate-45 transition-transform duration-200 transform group-[.is-open]:translate-y-[2px] group-[.is-open]:rotate-[135deg]"></div>
+                </div>
+                
+                <div class="absolute top-[calc(100%+8px)] left-0 right-0 z-20 bg-white/95 dark:bg-slate-800/95 backdrop-blur-xl border border-slate-200 dark:border-white/10 rounded-xl p-1.5 shadow-xl opacity-0 invisible -translate-y-2 group-[.is-open]:opacity-100 group-[.is-open]:visible group-[.is-open]:translate-y-0 transition-all duration-200">
+                    <div class="custom-option flex items-center justify-between px-3.5 py-3 rounded-lg cursor-pointer text-[15px] text-slate-600 dark:text-slate-300 hover:bg-indigo-50 dark:hover:bg-indigo-500/10 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors selected text-primary dark:text-indigo-400 font-semibold" data-value="c">
+                        <span>Clash (Meta)</span>
+                        <svg class="checkmark w-[18px] h-[18px] stroke-current opacity-100 scale-100 transition-all" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
                     </div>
-                    <div class="custom-options">
-                        <div class="custom-option selected" data-value="c">
-                            <span>Clash (Meta)</span>
-                            <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
-                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-                                stroke-linecap="round" stroke-linejoin="round">
-                                <polyline points="20 6 9 17 4 12"></polyline>
-                            </svg>
-                        </div>
-                        <div class="custom-option" data-value="x">
-                            <span>Sing-Box</span>
-                            <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
-                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-                                stroke-linecap="round" stroke-linejoin="round">
-                                <polyline points="20 6 9 17 4 12"></polyline>
-                            </svg>
-                        </div>
-                        <div class="custom-option" data-value="g">
-                            <span>Surge</span>
-                            <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
-                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-                                stroke-linecap="round" stroke-linejoin="round">
-                                <polyline points="20 6 9 17 4 12"></polyline>
-                            </svg>
-                        </div>
-                        <div class="custom-option" data-value="s">
-                            <span>Shadowrocket</span>
-                            <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
-                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-                                stroke-linecap="round" stroke-linejoin="round">
-                                <polyline points="20 6 9 17 4 12"></polyline>
-                            </svg>
-                        </div>
-                        <div class="custom-option" data-value="l">
-                            <span>Loon</span>
-                            <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
-                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-                                stroke-linecap="round" stroke-linejoin="round">
-                                <polyline points="20 6 9 17 4 12"></polyline>
-                            </svg>
-                        </div>
+                    <div class="custom-option flex items-center justify-between px-3.5 py-3 rounded-lg cursor-pointer text-[15px] text-slate-600 dark:text-slate-300 hover:bg-indigo-50 dark:hover:bg-indigo-500/10 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors" data-value="x">
+                        <span>Sing-Box</span>
+                        <svg class="checkmark w-[18px] h-[18px] stroke-current opacity-0 scale-75 transition-all" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    </div>
+                    <div class="custom-option flex items-center justify-between px-3.5 py-3 rounded-lg cursor-pointer text-[15px] text-slate-600 dark:text-slate-300 hover:bg-indigo-50 dark:hover:bg-indigo-500/10 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors" data-value="g">
+                        <span>Surge</span>
+                        <svg class="checkmark w-[18px] h-[18px] stroke-current opacity-0 scale-75 transition-all" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    </div>
+                    <div class="custom-option flex items-center justify-between px-3.5 py-3 rounded-lg cursor-pointer text-[15px] text-slate-600 dark:text-slate-300 hover:bg-indigo-50 dark:hover:bg-indigo-500/10 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors" data-value="s">
+                        <span>Shadowrocket</span>
+                        <svg class="checkmark w-[18px] h-[18px] stroke-current opacity-0 scale-75 transition-all" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    </div>
+                    <div class="custom-option flex items-center justify-between px-3.5 py-3 rounded-lg cursor-pointer text-[15px] text-slate-600 dark:text-slate-300 hover:bg-indigo-50 dark:hover:bg-indigo-500/10 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors" data-value="l">
+                        <span>Loon</span>
+                        <svg class="checkmark w-[18px] h-[18px] stroke-current opacity-0 scale-75 transition-all" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
                     </div>
                 </div>
-                <input type="hidden" id="client-select-value" value="c">
             </div>
+            <input type="hidden" id="client-select-value" value="c">
         </div>
 
-
-        <button id="convert-btn" disabled>
-            <div class="loader"></div>
-            <span>生成订阅链接</span>
+        <button id="convert-btn" disabled class="group relative overflow-hidden w-full h-12 sm:h-[52px] bg-gradient-to-br from-primary to-secondary text-white font-semibold rounded-xl flex items-center justify-center gap-2 transition-all duration-300 disabled:opacity-60 disabled:cursor-not-allowed hover:not(:disabled):-translate-y-0.5 hover:not(:disabled):shadow-[0_10px_30px_rgba(99,102,241,0.4)] active:not(:disabled):translate-y-0 text-base">
+            <div class="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:not(:disabled):translate-x-full transition-transform duration-500 ease-in-out"></div>
+            <div id="btn-loader" class="hidden w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+            <span id="btn-text">生成订阅链接</span>
         </button>
 
-        <div class="result-container" id="result-wrapper">
-            <label>生成结果</label>
-            <div id="result">
-                <code id="generated-url"></code>
-                <button id="copy-btn-inside">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <div id="result-wrapper" class="hidden mt-8 animate-slide-up">
+            <label class="block mb-3 font-semibold text-sm sm:text-base text-slate-900 dark:text-slate-100">生成结果</label>
+            <div id="result" class="relative flex items-center gap-3 w-full min-h-[52px] bg-white dark:bg-slate-700/60 border border-slate-300 dark:border-white/20 p-4 pr-14 sm:pr-16 rounded-xl cursor-pointer hover:border-indigo-400 transition-colors break-all group/result">
+                <code id="generated-url" class="font-mono text-xs sm:text-[0.85rem] text-slate-600 dark:text-slate-300 leading-relaxed flex-1"></code>
+                <button id="copy-btn-inside" class="absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-9 sm:h-9 bg-primary hover:bg-primary-dark text-white rounded-lg flex items-center justify-center transition-all hover:scale-105 active:scale-95 z-10">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
                         <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
                     </svg>
@@ -835,8 +144,11 @@
     </div>
 
     <script>
+        // DOM 元素获取
         const subUrlInput = document.getElementById('sub-url');
         const convertBtn = document.getElementById('convert-btn');
+        const btnLoader = document.getElementById('btn-loader');
+        const btnText = document.getElementById('btn-text');
         const resultWrapper = document.getElementById('result-wrapper');
         const generatedUrlElem = document.getElementById('generated-url');
         const resultBox = document.getElementById('result');
@@ -845,47 +157,56 @@
         const themeToggle = document.getElementById('theme-toggle');
         const themeColorMeta = document.getElementById('theme-color-meta');
 
-        // ++ 自定义下拉框 JavaScript 逻辑 ++
+        // 下拉框元素获取
         const customSelectWrapper = document.getElementById('custom-select-wrapper');
-        const selectContainer = document.getElementById('custom-select-container');
-        const selectTrigger = selectContainer.querySelector('.custom-select__trigger');
-        const options = selectContainer.querySelectorAll('.custom-option');
+        const selectTrigger = customSelectWrapper.querySelector('.select-trigger');
+        const options = customSelectWrapper.querySelectorAll('.custom-option');
         const selectedOptionText = document.getElementById('selected-option-text');
         const clientSelectValueInput = document.getElementById('client-select-value');
 
-        // 切换下拉框的展开/收起状态
-        selectTrigger.addEventListener('click', () => {
+        // 初始化禁用下拉框
+        customSelectWrapper.classList.add('disabled');
+
+        // 下拉框逻辑
+        selectTrigger.addEventListener('click', (e) => {
+            e.stopPropagation();
             if (!customSelectWrapper.classList.contains('disabled')) {
-                selectContainer.classList.toggle('open');
+                customSelectWrapper.classList.toggle('is-open');
             }
         });
 
-        // 处理选项点击事件
         options.forEach(option => {
-            option.addEventListener('click', () => {
+            option.addEventListener('click', (e) => {
+                e.stopPropagation();
                 if (option.classList.contains('selected')) {
-                    selectContainer.classList.remove('open');
+                    customSelectWrapper.classList.remove('is-open');
                     return;
                 }
-                options.forEach(o => o.classList.remove('selected'));
-                option.classList.add('selected');
+                
+                // 重置所有选项样式
+                options.forEach(o => {
+                    o.classList.remove('selected', 'text-primary', 'dark:text-indigo-400', 'font-semibold');
+                    const icon = o.querySelector('.checkmark');
+                    icon.classList.replace('opacity-100', 'opacity-0');
+                    icon.classList.replace('scale-100', 'scale-75');
+                });
+
+                // 设置当前项样式
+                option.classList.add('selected', 'text-primary', 'dark:text-indigo-400', 'font-semibold');
+                const activeIcon = option.querySelector('.checkmark');
+                activeIcon.classList.replace('opacity-0', 'opacity-100');
+                activeIcon.classList.replace('scale-75', 'scale-100');
+
+                // 更新值
                 selectedOptionText.textContent = option.querySelector('span').textContent;
                 clientSelectValueInput.value = option.dataset.value;
-                selectContainer.classList.remove('open');
+                customSelectWrapper.classList.remove('is-open');
             });
         });
 
-        // 当点击页面其他地方时，关闭下拉框 (此功能已实现)
-        window.addEventListener('click', (e) => {
-            if (!selectContainer.contains(e.target)) {
-                selectContainer.classList.remove('open');
-            }
-        });
+        window.addEventListener('click', () => customSelectWrapper.classList.remove('is-open'));
 
-        // 初始化时禁用自定义下拉框
-        customSelectWrapper.classList.add('disabled');
-        // -- 自定义下拉框 JS 结束 --
-
+        // 短链接域名
         const shortLinkDomains = [
             'suo.yt', 't.cn', 'bit.ly', 'tinyurl.com', 'short.link',
             'dwz.cn', 'u.nu', 'gg.gg', 'is.gd', 'v.gd',
@@ -893,127 +214,98 @@
             'd1.mk', 'dlj.tf', 'sub.cm'
         ];
 
+        // 主题逻辑
         function initTheme() {
             const savedTheme = localStorage.getItem('theme');
             const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
             const defaultTheme = savedTheme || (prefersDark ? 'dark' : 'light');
 
             if (defaultTheme === 'dark') {
-                document.documentElement.setAttribute('data-theme', 'dark');
+                document.documentElement.classList.add('dark');
+                themeColorMeta.setAttribute('content', '#0f172a');
             } else {
-                document.documentElement.removeAttribute('data-theme');
+                document.documentElement.classList.remove('dark');
+                themeColorMeta.setAttribute('content', '#f8fafc');
             }
-            updateThemeColor(defaultTheme);
         }
 
-        function updateThemeColor(theme) {
-            const color = theme === 'dark' ? '#0f172a' : '#f8fafc';
-            themeColorMeta.setAttribute('content', color);
-        }
-
-        function toggleTheme() {
-            const currentTheme = document.documentElement.getAttribute('data-theme');
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-
-            if (newTheme === 'light') {
-                document.documentElement.removeAttribute('data-theme');
+        themeToggle.addEventListener('click', () => {
+            const isDark = document.documentElement.classList.contains('dark');
+            if (isDark) {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+                themeColorMeta.setAttribute('content', '#f8fafc');
             } else {
-                document.documentElement.setAttribute('data-theme', newTheme);
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+                themeColorMeta.setAttribute('content', '#0f172a');
             }
-
-            localStorage.setItem('theme', newTheme);
-            updateThemeColor(newTheme);
-        }
-
-        themeToggle.addEventListener('click', toggleTheme);
+        });
         initTheme();
 
-        function checkOverflow() {
-            const container = document.querySelector('.container');
-            if (!container) return;
-            const containerHeight = container.offsetHeight;
-            const windowHeight = window.innerHeight;
-            const isMobile = window.innerWidth <= 600;
-            const padding = isMobile ? 32 : 64;
-
-            if (containerHeight > windowHeight - padding) {
-                document.body.classList.add('has-overflow');
-            } else {
-                document.body.classList.remove('has-overflow');
-            }
-        }
-
-        window.addEventListener('load', checkOverflow);
-        window.addEventListener('resize', checkOverflow);
-
+        // 提示框逻辑 (适配 Tailwind)
         function showToast(message, type = 'success') {
             const container = document.getElementById('toast-container');
             if (type === 'warning') {
-                const existingToasts = container.querySelectorAll('.toast.warning');
+                const existingToasts = container.querySelectorAll('.is-warning');
                 existingToasts.forEach(t => t.remove());
             }
+
             const toast = document.createElement('div');
-            toast.className = 'toast';
-            if (type === 'error') toast.classList.add('error');
-            if (type === 'warning') toast.classList.add('warning');
-            toast.textContent = message;
+            
+            // 基础样式
+            let classes = 'flex items-center gap-3 px-5 py-4 rounded-xl text-white shadow-2xl backdrop-blur-md animate-toast text-[14px] font-medium whitespace-pre-wrap ';
+            let icon = '';
+
+            if (type === 'error') {
+                classes += 'bg-red-500/95';
+                icon = '✕';
+            } else if (type === 'warning') {
+                classes += 'bg-amber-500/95 is-warning';
+                icon = '⚠';
+            } else {
+                classes += 'bg-emerald-500/95';
+                icon = '✓';
+            }
+
+            toast.className = classes;
+            toast.innerHTML = `<span class="text-lg font-bold leading-none">${icon}</span><span>${message}</span>`;
+            
             container.appendChild(toast);
-            setTimeout(() => toast.remove(), 3000);
+            setTimeout(() => toast.remove(), 2900);
         }
 
-        function copyToClipboard(text, successMessage, failureMessage) {
-            navigator.clipboard.writeText(text)
-                .then(() => showToast(successMessage))
-                .catch(err => {
-                    showToast(failureMessage, 'error');
-                    console.error('Copy failed', err);
-                });
-        }
-
+        // 链接验证与短链接识别
         function isValidUrl(string) {
-            if (!string || !string.trim().toLowerCase().startsWith('http')) {
-                return false;
-            }
-            try {
-                new URL(string);
-                return true;
-            } catch (_) {
-                return false;
-            }
+            if (!string || !string.trim().toLowerCase().startsWith('http')) return false;
+            try { new URL(string); return true; } catch (_) { return false; }
         }
 
         function isShortLink(url) {
             try {
-                const parsedUrl = new URL(url);
-                const hostname = parsedUrl.hostname.toLowerCase();
-                return shortLinkDomains.some(domain =>
-                    hostname === domain || hostname.endsWith('.' + domain)
-                );
-            } catch (_) {
-                return false;
-            }
+                const hostname = new URL(url).hostname.toLowerCase();
+                return shortLinkDomains.some(domain => hostname === domain || hostname.endsWith('.' + domain));
+            } catch (_) { return false; }
         }
 
+        // 输入事件处理
         subUrlInput.addEventListener('input', () => {
             const url = subUrlInput.value.trim();
-            const canBeValid = url.toLowerCase().startsWith('http');
+            const canBeValid = isValidUrl(url);
+            
             convertBtn.disabled = !canBeValid;
-
-            if (canBeValid) {
-                customSelectWrapper.classList.remove('disabled');
-            } else {
-                customSelectWrapper.classList.add('disabled');
-            }
-
-            resultWrapper.style.display = 'none';
+            canBeValid ? customSelectWrapper.classList.remove('disabled') : customSelectWrapper.classList.add('disabled');
+            
+            resultWrapper.classList.add('hidden');
 
             if (canBeValid && isShortLink(url)) {
-                urlInfoDiv.classList.add('show');
+                urlInfoDiv.classList.replace('hidden', 'flex');
             } else {
-                urlInfoDiv.classList.remove('show');
+                urlInfoDiv.classList.replace('flex', 'hidden');
             }
         });
 
+        // 提交按钮事件
         convertBtn.addEventListener('click', async () => {
             const subUrl = subUrlInput.value.trim();
             if (!isValidUrl(subUrl)) {
@@ -1021,10 +313,13 @@
                 return;
             }
 
+            // UI 加载状态
             showToast('正在生成订阅链接...', 'warning');
-            convertBtn.classList.add('loading');
+            btnLoader.classList.remove('hidden');
+            btnText.classList.add('hidden');
             convertBtn.disabled = true;
             customSelectWrapper.classList.add('disabled');
+            resultWrapper.classList.add('hidden');
 
             try {
                 const response = await fetch('/api/shorten', {
@@ -1039,33 +334,21 @@
                 const result = await response.json();
 
                 if (response.ok) {
-                    const { shortUrl, nodeCount } = result;
+                    generatedUrlElem.textContent = result.shortUrl;
+                    resultWrapper.classList.remove('hidden');
 
-                    generatedUrlElem.textContent = shortUrl;
-                    resultWrapper.style.display = 'block';
-                    copyBtnInside.style.display = 'flex';
-
-                    navigator.clipboard.writeText(shortUrl)
-                        .then(() => {
-                            showToast(`解析成功 (${nodeCount}节点)，已复制`);
-                        })
-                        .catch(err => {
-                            showToast('自动复制失败,请手动复制', 'error');
-                            console.error('Copy failed', err);
-                        });
-
-                    setTimeout(checkOverflow, 100);
-
+                    navigator.clipboard.writeText(result.shortUrl)
+                        .then(() => showToast(`解析成功 (${result.nodeCount || 0}节点)，已复制`))
+                        .catch(() => showToast('自动复制失败,请手动复制', 'error'));
                 } else {
                     showToast(result.message || '生成失败，未知错误', 'error');
-                    resultWrapper.style.display = 'none';
                 }
             } catch (error) {
                 showToast('请求失败,请检查网络或联系管理员', 'error');
-                console.error("Shorten request failed:", error);
-                resultWrapper.style.display = 'none';
             } finally {
-                convertBtn.classList.remove('loading');
+                // 恢复按钮状态
+                btnLoader.classList.add('hidden');
+                btnText.classList.remove('hidden');
                 if (isValidUrl(subUrlInput.value.trim())) {
                     convertBtn.disabled = false;
                     customSelectWrapper.classList.remove('disabled');
@@ -1073,25 +356,26 @@
             }
         });
 
-        const copyHandler = (event) => {
-            event.stopPropagation();
+        // 复制按钮逻辑
+        const copyHandler = (e) => {
+            e.stopPropagation();
             const urlToCopy = generatedUrlElem.textContent;
             if (urlToCopy) {
-                copyToClipboard(urlToCopy, '链接已复制', '复制失败');
+                navigator.clipboard.writeText(urlToCopy)
+                    .then(() => showToast('链接已复制'))
+                    .catch(() => showToast('复制失败', 'error'));
             }
         };
         resultBox.addEventListener('click', copyHandler);
         copyBtnInside.addEventListener('click', copyHandler);
 
+        // 禁用移动端双击缩放
         let lastTouchEnd = 0;
-        document.addEventListener('touchend', (event) => {
+        document.addEventListener('touchend', (e) => {
             const now = Date.now();
-            if (now - lastTouchEnd <= 300) {
-                event.preventDefault();
-            }
+            if (now - lastTouchEnd <= 300) e.preventDefault();
             lastTouchEnd = now;
-        }, false);
+        }, { passive: false });
     </script>
 </body>
-
 </html>
