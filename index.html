@@ -5,37 +5,54 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>订阅转换</title>
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg t='1775239517919' class='icon' viewBox='0 0 1024 1024' version='1.1' xmlns='http://www.w3.org/2000/svg' p-id='1080' width='16' height='16'%3E%3Cpath d='M64.781017 322.002011v335.425585c0 56.431786 34.440654 65.831271 34.440654 65.831271l363.188943 244.517396c56.353312 37.624097 40.702036-43.884608 40.702036-43.884608v-307.209692L64.781017 322.002011z' fill='%2337474F' p-id='1081'%3E%3C/path%3E%3Cpath d='M947.601905 327.653909v335.429073c0 56.426555-34.440654 65.831271-34.440654 65.831271s-306.832143 206.899402-363.188071 244.517395c-56.357672 37.618866-40.702036-43.887223-40.702036-43.887223V622.329501L947.601033 327.653909z' fill='%23455A64' p-id='1082'%3E%3C/path%3E%3Cpath d='M941.950007 322.002011v335.425585c0 56.431786-34.441526 65.831271-34.441526 65.831271s-306.834759 206.902018-363.188071 244.517396c-56.353312 37.624097-40.702036-43.884608-40.702036-43.884608v-307.209692L941.950007 322.002011z' fill='%23455A64' p-id='1083'%3E%3C/path%3E%3Cpath d='M544.093707 40.778668c-25.068199-15.663483-62.657419-15.663483-84.586644 0L83.577371 297.6488c-25.062096 15.668714-25.062096 43.85845 0 59.518445l375.929692 260.011722c25.05948 15.659995 62.657419 15.659995 84.586644 0l379.057331-263.141977c25.068199-15.659995 25.068199-43.85845 0-59.518445l-379.057331-253.739877z' fill='%23546E7A' p-id='1084'%3E%3C/path%3E%3Cpath d='M503.365512 982.930534c-18.833847 0-31.389745-12.041455-31.389745-27.099813v-337.300251c0-15.049639 12.555898-27.099813 31.389745-27.099813s31.389745 12.050174 31.389745 27.099813v334.283347c0 18.075262-12.555898 30.116717-31.389745 30.116717z' fill='%23546E7A' p-id='1085'%3E%3C/path%3E%3Cpath d='M816.321272 535.55691c0 31.363587 3.121536 43.902046-31.293833 65.85743l-78.221501 50.171276c-34.415368 21.955383-46.927669 3.138975-46.927669-25.085638v-81.534863c0-6.26923 0-9.408204-9.390765-15.677434-81.351756-56.449225-394.236889-272.820482-450.556195-313.583555L343.86201 115.352855c40.675878 25.087382 337.910607 222.649206 459.938241 307.314325 6.26051 3.138975 9.390765 9.408204 9.390765 12.547178v100.342552z' fill='%2399AAB5' p-id='1086'%3E%3C/path%3E%3Cpath d='M807.15721 425.945664c-125.201486-84.612802-422.558286-282.035117-460.112629-307.10506l-56.341977 34.471172L199.931309 215.983146c56.340233 40.745633 369.343949 253.838406 450.721863 310.244035 6.26051 3.130255 6.26051 6.26923 6.26051 9.399484l153.373783-106.550746s0-3.130255-3.130255-3.130255z' fill='%23CCD6DD' p-id='1087'%3E%3C/path%3E%3Cpath d='M817.17577 535.173258v-97.037909c0-6.26051-3.138975-9.390765-9.408204-12.521021-125.410751-84.525608-423.273275-281.73081-460.906092-306.773724L281.021484 162.664177c106.603062 71.995868 391.927127 259.819896 467.175321 313.034233 9.408204 6.26051 9.408204 12.521021 9.408204 15.651276V622.820402l31.354868-21.911786c31.354868-21.911786 28.215893-37.563062 28.215893-65.735358z' fill='%23CCD6DD' p-id='1088'%3E%3C/path%3E%3Cpath d='M807.000261 425.71896C681.763897 341.167194 384.337342 143.892237 346.765561 118.840604l-65.744077 43.841011c106.446114 72.022026 391.351648 259.90709 466.49521 313.138866l3.130255 3.130256 65.744078-46.971266c-6.26051-3.130255-6.26051-6.26051-9.390766-6.260511z' fill='%23E1E8ED' p-id='1089'%3E%3C/path%3E%3C/svg%3E">
-    
+
     <script src="https://cdn.tailwindcss.com"></script>
-    
+
     <style>
         [x-cloak] { display: none !important; }
-        
-        /* 全局严格锁死，彻底杜绝外层滑动与橡皮筋回弹 */
-        html, body {
-            width: 100%;
+
+        /*
+         * 修复核心：移除 html/body 的 position:fixed
+         * 原方案导致 iOS 键盘弹起时点击坐标偏移，输入框"无反应"
+         * 改为：html/body 铺满视口但允许内部滚动容器接管滚动
+         */
+        html {
             height: 100%;
-            overflow: hidden !important;
             overscroll-behavior: none;
-            position: fixed;
-            top: 0;
-            left: 0;
+        }
+        body {
+            height: 100%;
+            overflow: hidden;
+            overscroll-behavior: none;
+            /* 不再使用 position:fixed，避免 iOS 软键盘坐标错位 */
         }
 
-        /* 隐藏包裹层的滚动条但保留滚动功能 */
+        /* 安全滚动容器：只在这一层发生滚动，橡皮筋效果受 overscroll-behavior:contain 约束 */
+        .scroll-wrapper {
+            -webkit-overflow-scrolling: touch;
+            overscroll-behavior-y: contain;
+        }
+
+        /* 隐藏滚动条但保留滚动功能 */
         .scrollbar-hide::-webkit-scrollbar { display: none; }
         .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
 
-        /* 安全滚动视图层 */
-        .scroll-wrapper {
-            -webkit-overflow-scrolling: touch;
-            overscroll-behavior: contain;
+        /* 输入框在 iOS 上去除默认圆角与阴影，确保点击区域与视觉一致 */
+        input[type="url"] {
+            -webkit-appearance: none;
+            appearance: none;
+        }
+
+        /* 提升下拉和按钮的触摸响应速度 */
+        button, [role="button"], .cursor-pointer {
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
         }
     </style>
 
     <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    
+
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -49,77 +66,141 @@
     </script>
 </head>
 
-<body x-data="appData()" 
+<body x-data="appData()"
       :class="isDark ? 'dark bg-slate-900 text-slate-100' : 'bg-slate-50 text-slate-900'"
-      class="h-[100dvh] w-screen relative transition-colors duration-500 font-sans">
+      class="h-full w-screen relative transition-colors duration-500 font-sans">
 
+    <!-- 背景装饰光晕 -->
     <div class="fixed -top-[250px] -right-[250px] w-[500px] h-[500px] bg-primary/20 dark:bg-primary/30 rounded-full blur-[100px] animate-pulse-slow pointer-events-none z-0"></div>
     <div class="fixed -bottom-[200px] -left-[200px] w-[400px] h-[400px] bg-secondary/20 dark:bg-secondary/30 rounded-full blur-[100px] animate-pulse-slow pointer-events-none z-0" style="animation-delay: 4s;"></div>
 
-    <button @click="toggleTheme()" class="fixed top-6 right-6 w-11 h-11 flex items-center justify-center rounded-full bg-white/80 dark:bg-slate-800/80 backdrop-blur border border-slate-200 dark:border-slate-700 shadow-md hover:scale-105 transition-transform z-50">
+    <!-- 主题切换按钮 -->
+    <button @click="toggleTheme()"
+            class="fixed top-6 right-6 w-11 h-11 flex items-center justify-center rounded-full bg-white/80 dark:bg-slate-800/80 backdrop-blur border border-slate-200 dark:border-slate-700 shadow-md hover:scale-105 transition-transform z-50"
+            aria-label="切换主题">
         <svg x-show="!isDark" class="w-5 h-5 text-slate-800" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
         <svg x-show="isDark" class="w-5 h-5 text-slate-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
     </button>
 
-    <div class="fixed top-6 left-1/2 -translate-x-1/2 z-[100] flex flex-col gap-3 pointer-events-none w-full max-w-xs items-center">
+    <!-- Toast 通知层 -->
+    <div class="fixed top-6 left-1/2 -translate-x-1/2 z-[100] flex flex-col gap-3 pointer-events-none w-full max-w-xs items-center px-4">
         <template x-for="toast in toasts" :key="toast.id">
-            <div x-transition.opacity.duration.300ms 
+            <div x-transition:enter="transition ease-out duration-300"
+                 x-transition:enter-start="opacity-0 -translate-y-2"
+                 x-transition:enter-end="opacity-100 translate-y-0"
+                 x-transition:leave="transition ease-in duration-200"
+                 x-transition:leave-start="opacity-100 translate-y-0"
+                 x-transition:leave-end="opacity-0 -translate-y-2"
                  :class="toast.type === 'error' ? 'bg-red-500' : (toast.type === 'warning' ? 'bg-amber-500' : 'bg-emerald-500')"
-                 class="px-5 py-3 rounded-xl shadow-xl text-white text-sm backdrop-blur flex items-center gap-2 max-w-full transition-all">
+                 class="w-full px-5 py-3 rounded-xl shadow-xl text-white text-sm backdrop-blur flex items-center gap-2">
                 <span x-text="toast.type === 'error' ? '✕' : (toast.type === 'warning' ? '⚠' : '✓')" class="font-bold flex-shrink-0"></span>
                 <span x-text="toast.message" class="whitespace-pre-wrap break-words"></span>
             </div>
         </template>
     </div>
 
-    <div class="fixed inset-0 z-10 overflow-y-auto overflow-x-hidden scroll-wrapper scrollbar-hide">
-        <div class="flex min-h-full items-center justify-center p-4">
-            
+    <!--
+        滚动层修复：
+        - 使用 height:100% + overflow-y:auto 而非 fixed+inset-0，避免 iOS 键盘弹起时坐标错位
+        - overscroll-behavior-y:contain 防止滚动穿透到 body
+    -->
+    <div class="h-full w-full overflow-y-auto overflow-x-hidden scroll-wrapper scrollbar-hide relative z-10">
+        <div class="flex min-h-full items-center justify-center p-4 py-16">
+
             <div class="w-full max-w-lg p-8 sm:p-10 bg-white/80 dark:bg-slate-800/80 backdrop-blur-xl border border-slate-200/50 dark:border-slate-700/50 rounded-[2rem] shadow-2xl relative transition-all overflow-visible">
                 <h1 class="text-3xl font-bold text-center mb-8 bg-gradient-to-br from-primary to-secondary bg-clip-text text-transparent">订阅转换</h1>
 
+                <!-- 订阅链接输入框 -->
                 <div class="mb-6">
-                    <label class="block mb-2 text-sm font-semibold text-slate-700 dark:text-slate-300">原始订阅链接</label>
-                    <input x-model="subUrl" type="url" placeholder="请在此处粘贴原始订阅链接" 
-                           class="w-full h-12 px-4 bg-white dark:bg-slate-700/50 border border-slate-300 dark:border-slate-600 rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all placeholder:text-slate-400">
-                    <div x-show="isShortLink" x-collapse x-cloak class="mt-2 px-4 py-2 bg-amber-50 dark:bg-amber-500/10 border border-amber-200 dark:border-amber-500/30 rounded-lg text-amber-600 dark:text-amber-400 text-sm flex items-center gap-2">
-                        ⚡ 检测到短链接,将自动解析重定向后的链接
+                    <label class="block mb-2 text-sm font-semibold text-slate-700 dark:text-slate-300" for="subUrlInput">原始订阅链接</label>
+                    <input
+                        id="subUrlInput"
+                        x-model="subUrl"
+                        type="url"
+                        inputmode="url"
+                        autocomplete="off"
+                        autocorrect="off"
+                        autocapitalize="off"
+                        spellcheck="false"
+                        placeholder="请在此处粘贴原始订阅链接"
+                        class="w-full h-12 px-4 bg-white dark:bg-slate-700/50 border border-slate-300 dark:border-slate-600 rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all placeholder:text-slate-400 text-base"
+                    >
+                    <!-- 短链提示 -->
+                    <div x-show="isShortLink" x-collapse x-cloak
+                         class="mt-2 px-4 py-2 bg-amber-50 dark:bg-amber-500/10 border border-amber-200 dark:border-amber-500/30 rounded-lg text-amber-600 dark:text-amber-400 text-sm flex items-center gap-2">
+                        ⚡ 检测到短链接，将自动解析重定向后的链接
                     </div>
                 </div>
 
+                <!-- 目标客户端选择 -->
                 <div class="mb-8 relative" x-data="{ dropdownOpen: false }">
                     <label class="block mb-2 text-sm font-semibold text-slate-700 dark:text-slate-300">目标客户端</label>
-                    <div @click="if(isValid) dropdownOpen = !dropdownOpen" @click.outside="dropdownOpen = false"
-                         :class="!isValid ? 'opacity-60 cursor-not-allowed bg-slate-50 dark:bg-slate-700/30' : 'cursor-pointer bg-white dark:bg-slate-700/50 hover:border-primary/50'"
-                         class="w-full h-12 px-4 flex justify-between items-center border border-slate-300 dark:border-slate-600 rounded-xl transition-all">
+
+                    <!--
+                        交互修复：
+                        1. 使用 @pointerup.prevent 替代 @click，避免 iOS 上 300ms 延迟和焦点抢占
+                        2. 禁用状态下阻止事件冒泡
+                    -->
+                    <div
+                        @pointerup.prevent="if(isValid) dropdownOpen = !dropdownOpen"
+                        @click.outside="dropdownOpen = false"
+                        :class="!isValid ? 'opacity-60 cursor-not-allowed bg-slate-50 dark:bg-slate-700/30' : 'cursor-pointer bg-white dark:bg-slate-700/50 hover:border-primary/50'"
+                        class="w-full h-12 px-4 flex justify-between items-center border border-slate-300 dark:border-slate-600 rounded-xl transition-all select-none"
+                        role="combobox"
+                        :aria-expanded="dropdownOpen"
+                        aria-haspopup="listbox">
                         <span x-text="clientName"></span>
-                        <div class="w-2.5 h-2.5 border-l-2 border-b-2 border-slate-400 transform -rotate-45 transition-transform" :class="dropdownOpen ? 'rotate-[135deg] translate-y-0.5' : ''"></div>
+                        <div class="w-2.5 h-2.5 border-l-2 border-b-2 border-slate-400 transform transition-transform duration-200"
+                             :class="dropdownOpen ? '-rotate-[225deg] translate-y-[3px]' : '-rotate-45'"></div>
                     </div>
-                    
-                    <div x-show="dropdownOpen" x-transition.opacity.duration.200ms x-cloak
-                         class="absolute z-20 w-full mt-2 p-1.5 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl shadow-xl backdrop-blur-xl">
+
+                    <!-- 下拉选项 -->
+                    <div x-show="dropdownOpen"
+                         x-transition:enter="transition ease-out duration-150"
+                         x-transition:enter-start="opacity-0 scale-95 -translate-y-1"
+                         x-transition:enter-end="opacity-100 scale-100 translate-y-0"
+                         x-transition:leave="transition ease-in duration-100"
+                         x-transition:leave-start="opacity-100 scale-100 translate-y-0"
+                         x-transition:leave-end="opacity-0 scale-95 -translate-y-1"
+                         x-cloak
+                         class="absolute z-30 w-full mt-2 p-1.5 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl shadow-xl backdrop-blur-xl origin-top"
+                         role="listbox">
                         <template x-for="opt in options" :key="opt.val">
-                            <div @click="client = opt.val; clientName = opt.name; dropdownOpen = false"
-                                 :class="client === opt.val ? 'text-primary font-bold bg-primary/5 dark:bg-primary/10' : 'hover:bg-slate-50 dark:hover:bg-slate-700/50 hover:text-primary'"
-                                 class="flex justify-between items-center p-3 rounded-lg cursor-pointer transition-colors text-sm">
+                            <div
+                                @pointerup.prevent="client = opt.val; clientName = opt.name; dropdownOpen = false"
+                                :class="client === opt.val ? 'text-primary font-bold bg-primary/5 dark:bg-primary/10' : 'hover:bg-slate-50 dark:hover:bg-slate-700/50 hover:text-primary'"
+                                class="flex justify-between items-center p-3 rounded-lg cursor-pointer transition-colors text-sm select-none"
+                                role="option"
+                                :aria-selected="client === opt.val">
                                 <span x-text="opt.name"></span>
-                                <svg x-show="client === opt.val" class="w-4 h-4 stroke-current" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                <svg x-show="client === opt.val" class="w-4 h-4 stroke-current flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
                             </div>
                         </template>
                     </div>
                 </div>
 
-                <button @click="convert" :disabled="!isValid || loading"
-                        class="w-full h-12 relative overflow-hidden bg-gradient-to-r from-primary to-secondary text-white font-semibold rounded-xl flex items-center justify-center transition-all disabled:opacity-60 disabled:cursor-not-allowed hover:shadow-[0_8px_25px_-5px_rgba(99,102,241,0.5)] hover:-translate-y-0.5 active:translate-y-0">
-                    <svg x-show="loading" class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                <!-- 生成按钮 -->
+                <button
+                    @click="convert"
+                    :disabled="!isValid || loading"
+                    class="w-full h-12 relative overflow-hidden bg-gradient-to-r from-primary to-secondary text-white font-semibold rounded-xl flex items-center justify-center transition-all disabled:opacity-60 disabled:cursor-not-allowed hover:shadow-[0_8px_25px_-5px_rgba(99,102,241,0.5)] hover:-translate-y-0.5 active:translate-y-0 active:shadow-none">
+                    <svg x-show="loading" class="animate-spin -ml-1 mr-3 h-5 w-5 text-white flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
                     <span x-text="loading ? '正在生成...' : '生成订阅链接'"></span>
                 </button>
 
+                <!-- 生成结果 -->
                 <div x-show="generatedUrl" x-collapse x-cloak class="mt-6">
                     <label class="block mb-2 text-sm font-semibold text-slate-700 dark:text-slate-300">生成结果</label>
-                    <div @click="copyToClipboard" class="group relative w-full p-4 pr-12 bg-slate-50 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600 hover:border-primary/50 rounded-xl cursor-pointer transition-all break-all text-xs font-mono text-slate-600 dark:text-slate-400 leading-relaxed">
+                    <div
+                        @click="copyToClipboard"
+                        class="group relative w-full p-4 pr-12 bg-slate-50 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600 hover:border-primary/50 rounded-xl cursor-pointer transition-all break-all text-xs font-mono text-slate-600 dark:text-slate-400 leading-relaxed">
                         <span x-text="generatedUrl"></span>
-                        <button class="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center bg-primary text-white rounded-lg opacity-0 group-hover:opacity-100 transition-opacity hover:bg-primary-dark">
+                        <button
+                            class="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center bg-primary text-white rounded-lg opacity-0 group-hover:opacity-100 transition-opacity"
+                            aria-label="复制链接">
                             <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
                         </button>
                     </div>
@@ -137,20 +218,30 @@
                 clientName: 'Clash (Meta)',
                 generatedUrl: '',
                 loading: false,
-                isDark: localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches),
+                isDark: localStorage.getItem('theme') === 'dark' ||
+                        (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches),
                 toasts: [],
                 toastId: 0,
                 shortDomains: ['suo.yt', 't.cn', 'bit.ly', 'tinyurl.com', 'short.link', 'dwz.cn', 'is.gd', 'sub.cm'],
                 options: [
-                    { val: 'c', name: 'Clash (Meta)' }, { val: 'x', name: 'Sing-Box' },
-                    { val: 'g', name: 'Surge' }, { val: 's', name: 'Shadowrocket' }, { val: 'l', name: 'Loon' }
+                    { val: 'c', name: 'Clash (Meta)' },
+                    { val: 'x', name: 'Sing-Box' },
+                    { val: 'g', name: 'Surge' },
+                    { val: 's', name: 'Shadowrocket' },
+                    { val: 'l', name: 'Loon' }
                 ],
-                
-                get isValid() { return this.subUrl.trim().toLowerCase().startsWith('http'); },
-                
-                get isShortLink() { 
+
+                get isValid() {
+                    return this.subUrl.trim().toLowerCase().startsWith('http');
+                },
+
+                get isShortLink() {
                     if (!this.subUrl.trim()) return false;
-                    try { return this.shortDomains.some(d => new URL(this.subUrl).hostname.endsWith(d)); } catch { return false; }
+                    try {
+                        return this.shortDomains.some(d => new URL(this.subUrl).hostname.endsWith(d));
+                    } catch {
+                        return false;
+                    }
                 },
 
                 toggleTheme() {
@@ -161,7 +252,9 @@
                 showToast(message, type = 'success') {
                     const id = ++this.toastId;
                     this.toasts.push({ id, message, type });
-                    setTimeout(() => { this.toasts = this.toasts.filter(t => t.id !== id); }, 3000);
+                    setTimeout(() => {
+                        this.toasts = this.toasts.filter(t => t.id !== id);
+                    }, 3000);
                 },
 
                 async convert() {
@@ -177,7 +270,7 @@
                             body: JSON.stringify({ url: this.subUrl.trim(), client: this.client })
                         });
                         const data = await res.json();
-                        
+
                         if (res.ok) {
                             this.generatedUrl = data.shortUrl;
                             this.showToast(`解析成功 (${data.nodeCount}节点)`);
@@ -193,7 +286,7 @@
                 },
 
                 copyToClipboard() {
-                    if(!this.generatedUrl) return;
+                    if (!this.generatedUrl) return;
                     navigator.clipboard.writeText(this.generatedUrl)
                         .then(() => this.showToast('链接已复制到剪贴板'))
                         .catch(() => this.showToast('复制失败，请手动复制', 'error'));
