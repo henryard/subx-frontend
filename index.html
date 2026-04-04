@@ -1,374 +1,179 @@
 <!DOCTYPE html>
 <html lang="zh-CN" class="antialiased">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>订阅转换</title>
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg t='1775239517919' class='icon' viewBox='0 0 1024 1024' version='1.1' xmlns='http://www.w3.org/2000/svg' p-id='1080' width='16' height='16'%3E%3Cpath d='M64.781017 322.002011v335.425585c0 56.431786 34.440654 65.831271 34.440654 65.831271l363.188943 244.517396c56.353312 37.624097 40.702036-43.884608 40.702036-43.884608v-307.209692L64.781017 322.002011z' fill='%2337474F' p-id='1081'%3E%3C/path%3E%3Cpath d='M947.601905 327.653909v335.429073c0 56.426555-34.440654 65.831271-34.440654 65.831271s-306.832143 206.899402-363.188071 244.517395c-56.357672 37.618866-40.702036-43.887223-40.702036-43.887223V622.329501L947.601033 327.653909z' fill='%23455A64' p-id='1082'%3E%3C/path%3E%3Cpath d='M941.950007 322.002011v335.425585c0 56.431786-34.441526 65.831271-34.441526 65.831271s-306.834759 206.902018-363.188071 244.517396c-56.353312 37.624097-40.702036-43.884608-40.702036-43.884608v-307.209692L941.950007 322.002011z' fill='%23455A64' p-id='1083'%3E%3C/path%3E%3Cpath d='M544.093707 40.778668c-25.068199-15.663483-62.657419-15.663483-84.586644 0L83.577371 297.6488c-25.062096 15.668714-25.062096 43.85845 0 59.518445l375.929692 260.011722c25.05948 15.659995 62.657419 15.659995 84.586644 0l379.057331-263.141977c25.068199-15.659995 25.068199-43.85845 0-59.518445l-379.057331-253.739877z' fill='%23546E7A' p-id='1084'%3E%3C/path%3E%3Cpath d='M503.365512 982.930534c-18.833847 0-31.389745-12.041455-31.389745-27.099813v-337.300251c0-15.049639 12.555898-27.099813 31.389745-27.099813s31.389745 12.050174 31.389745 27.099813v334.283347c0 18.075262-12.555898 30.116717-31.389745 30.116717z' fill='%23546E7A' p-id='1085'%3E%3C/path%3E%3Cpath d='M816.321272 535.55691c0 31.363587 3.121536 43.902046-31.293833 65.85743l-78.221501 50.171276c-34.415368 21.955383-46.927669 3.138975-46.927669-25.085638v-81.534863c0-6.26923 0-9.408204-9.390765-15.677434-81.351756-56.449225-394.236889-272.820482-450.556195-313.583555L343.86201 115.352855c40.675878 25.087382 337.910607 222.649206 459.938241 307.314325 6.26051 3.138975 9.390765 9.408204 9.390765 12.547178v100.342552z' fill='%2399AAB5' p-id='1086'%3E%3C/path%3E%3Cpath d='M807.15721 425.945664c-125.201486-84.612802-422.558286-282.035117-460.112629-307.10506l-56.341977 34.471172L199.931309 215.983146c56.340233 40.745633 369.343949 253.838406 450.721863 310.244035 6.26051 3.130255 6.26051 6.26923 6.26051 9.399484l153.373783-106.550746s0-3.130255-3.130255-3.130255z' fill='%23CCD6DD' p-id='1087'%3E%3C/path%3E%3Cpath d='M817.17577 535.173258v-97.037909c0-6.26051-3.138975-9.390765-9.408204-12.521021-125.410751-84.525608-423.273275-281.73081-460.906092-306.773724L281.021484 162.664177c106.603062 71.995868 391.927127 259.819896 467.175321 313.034233 9.408204 6.26051 9.408204 12.521021 9.408204 15.651276V622.820402l31.354868-21.911786c31.354868-21.911786 28.215893-37.563062 28.215893-65.735358z' fill='%23CCD6DD' p-id='1088'%3E%3C/path%3E%3Cpath d='M807.000261 425.71896C681.763897 341.167194 384.337342 143.892237 346.765561 118.840604l-65.744077 43.841011c106.446114 72.022026 391.351648 259.90709 466.49521 313.138866l3.130255 3.130256 65.744078-46.971266c-6.26051-3.130255-6.26051-6.26051-9.390766-6.260511z' fill='%23E1E8ED' p-id='1089'%3E%3C/path%3E%3C/svg%3E">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>订阅转换</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg t='1775239517919' class='icon' viewBox='0 0 1024 1024' version='1.1' xmlns='http://www.w3.org/2000/svg' p-id='1080' width='16' height='16'%3E%3Cpath d='M64.781017 322.002011v335.425585c0 56.431786 34.440654 65.831271 34.440654 65.831271l363.188943 244.517396c56.353312 37.624097 40.702036-43.884608 40.702036-43.884608v-307.209692L64.781017 322.002011z' fill='%2337474F' p-id='1081'%3E%3C/path%3E%3Cpath d='M947.601905 327.653909v335.429073c0 56.426555-34.440654 65.831271-34.440654 65.831271s-306.832143 206.899402-363.188071 244.517395c-56.357672 37.618866-40.702036-43.887223-40.702036-43.887223V622.329501L947.601033 327.653909z' fill='%23455A64' p-id='1082'%3E%3C/path%3E%3Cpath d='M941.950007 322.002011v335.425585c0 56.431786-34.441526 65.831271-34.441526 65.831271s-306.834759 206.902018-363.188071 244.517396c-56.353312 37.624097-40.702036-43.884608-40.702036-43.884608v-307.209692L941.950007 322.002011z' fill='%23455A64' p-id='1083'%3E%3C/path%3E%3Cpath d='M544.093707 40.778668c-25.068199-15.663483-62.657419-15.663483-84.586644 0L83.577371 297.6488c-25.062096 15.668714-25.062096 43.85845 0 59.518445l375.929692 260.011722c25.05948 15.659995 62.657419 15.659995 84.586644 0l379.057331-263.141977c25.068199-15.659995 25.068199-43.85845 0-59.518445l-379.057331-253.739877z' fill='%23546E7A' p-id='1084'%3E%3C/path%3E%3Cpath d='M503.365512 982.930534c-18.833847 0-31.389745-12.041455-31.389745-27.099813v-337.300251c0-15.049639 12.555898-27.099813 31.389745-27.099813s31.389745 12.050174 31.389745 27.099813v334.283347c0 18.075262-12.555898 30.116717-31.389745 30.116717z' fill='%23546E7A' p-id='1085'%3E%3C/path%3E%3Cpath d='M816.321272 535.55691c0 31.363587 3.121536 43.902046-31.293833 65.85743l-78.221501 50.171276c-34.415368 21.955383-46.927669 3.138975-46.927669-25.085638v-81.534863c0-6.26923 0-9.408204-9.390765-15.677434-81.351756-56.449225-394.236889-272.820482-450.556195-313.583555L343.86201 115.352855c40.675878 25.087382 337.910607 222.649206 459.938241 307.314325 6.26051 3.138975 9.390765 9.408204 9.390765 12.547178v100.342552z' fill='%2399AAB5' p-id='1086'%3E%3C/path%3E%3Cpath d='M807.15721 425.945664c-125.201486-84.612802-422.558286-282.035117-460.112629-307.10506l-56.341977 34.471172L199.931309 215.983146c56.340233 40.745633 369.343949 253.838406 450.721863 310.244035 6.26051 3.130255 6.26051 6.26923 6.26051 9.399484l153.373783-106.550746s0-3.130255-3.130255-3.130255z' fill='%23CCD6DD' p-id='1087'%3E%3C/path%3E%3Cpath d='M817.17577 535.173258v-97.037909c0-6.26051-3.138975-9.390765-9.408204-12.521021-125.410751-84.525608-423.273275-281.73081-460.906092-306.773724L281.021484 162.664177c106.603062 71.995868 391.927127 259.819896 467.175321 313.034233 9.408204 6.26051 9.408204 12.521021 9.408204 15.651276V622.820402l31.354868-21.911786c31.354868-21.911786 28.215893-37.563062 28.215893-65.735358z' fill='%23CCD6DD' p-id='1088'%3E%3C/path%3E%3Cpath d='M807.000261 425.71896C681.763897 341.167194 384.337342 143.892237 346.765561 118.840604l-65.744077 43.841011c106.446114 72.022026 391.351648 259.90709 466.49521 313.138866l3.130255 3.130256 65.744078-46.971266c-6.26051-3.130255-6.26051-6.26051-9.390766-6.260511z' fill='%23E1E8ED' p-id='1089'%3E%3C/path%3E%3C/svg%3E">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <style>
+        [x-cloak] { display: none !important; }
+    </style>
 
-    <script src="https://cdn.tailwindcss.com"></script>
-
-    <style>
-        [x-cloak] { display: none !important; }
-
-        /*
-         * Safari 视口高度终极方案：
-         * Safari 的 100vh = 含地址栏的高度，导致页面超出可见区域。
-         * 用 JS 实时写入 --vh = window.innerHeight * 0.01，
-         * 所有需要全屏高度的元素改用 calc(var(--vh) * 100)。
-         */
-        :root { --vh: 1vh; }
-
-        html, body {
-            width: 100%;
-            height: 100%;
-            margin: 0;
-            padding: 0;
-            overscroll-behavior: none;
-        }
-
-        /* 背景固定层：撑满真实视口 */
-        #app-bg {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%;
-            height: calc(var(--vh) * 100);
-            overflow: hidden;
-            pointer-events: none;
-            z-index: 0;
-            transition: background-color 0.5s;
-        }
-
-        /* 滚动内容层：覆盖同样区域，独立滚动 */
-        #app-scroll {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%;
-            height: calc(var(--vh) * 100);
-            overflow-y: auto;
-            overflow-x: hidden;
-            overscroll-behavior-y: contain;
-            -webkit-overflow-scrolling: touch;
-            z-index: 10;
-        }
-        #app-scroll::-webkit-scrollbar { display: none; }
-        #app-scroll { -ms-overflow-style: none; scrollbar-width: none; }
-
-        /* 内容居中容器：min-height 同样使用 --vh */
-        .content-centering {
-            min-height: calc(var(--vh) * 100);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            /* 上方留出主题按钮空间，底部留出安全区 */
-            padding: 5rem 1rem max(1.5rem, env(safe-area-inset-bottom));
-            box-sizing: border-box;
-        }
-
-        /* 毛玻璃 */
-        .glass {
-            -webkit-backdrop-filter: blur(20px) saturate(160%);
-            backdrop-filter: blur(20px) saturate(160%);
-        }
-
-        /* 输入框去除 iOS 默认样式 */
-        input[type="url"] {
-            -webkit-appearance: none;
-            appearance: none;
-        }
-
-        /* 触摸优化 */
-        button, .tap-target {
-            -webkit-tap-highlight-color: transparent;
-            touch-action: manipulation;
-        }
-
-        /* 光晕动画 */
-        @keyframes glow-float {
-            0%, 100% { opacity: 0.65; transform: scale(1) translate(0, 0); }
-            33%       { opacity: 0.9;  transform: scale(1.06) translate(8px, -12px); }
-            66%       { opacity: 0.7;  transform: scale(0.96) translate(-6px, 8px); }
-        }
-        .glow-a { animation: glow-float 9s ease-in-out infinite; }
-        .glow-b { animation: glow-float 11s ease-in-out infinite 2.5s reverse; }
-        .glow-c { animation: glow-float 13s ease-in-out infinite 5s; }
-    </style>
-
-    <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-
-    <script>
-        // 立即设置 --vh，避免首帧使用错误高度
-        function setVh() {
-            document.documentElement.style.setProperty('--vh', (window.innerHeight * 0.01) + 'px');
-        }
-        setVh();
-        window.addEventListener('resize', setVh);
-        window.addEventListener('orientationchange', () => setTimeout(setVh, 250));
-
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: { primary: '#6366f1', secondary: '#8b5cf6' }
-                }
-            }
-        }
-    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: { primary: '#6366f1', secondary: '#8b5cf6' },
+                    animation: { 'pulse-slow': 'pulse 8s cubic-bezier(0.4, 0, 0.6, 1) infinite' }
+                }
+            }
+        }
+    </script>
 </head>
 
-<body x-data="appData()" :class="isDark ? 'dark' : ''" class="font-sans">
+<body x-data="appData()" 
+      :class="isDark ? 'dark bg-slate-900 text-slate-100' : 'bg-slate-50 text-slate-900'"
+      class="min-h-screen flex items-center justify-center p-4 relative overflow-x-hidden transition-colors duration-500 font-sans">
 
-    <!-- ① 背景层 -->
-    <div id="app-bg" :class="isDark ? 'bg-slate-900' : 'bg-slate-100/80'">
-        <div class="glow-a absolute -top-32 -right-32 w-[420px] h-[420px] rounded-full"
-             :class="isDark ? 'bg-indigo-500/30' : 'bg-indigo-300/40'"
-             style="filter: blur(88px);"></div>
-        <div class="glow-b absolute -bottom-24 -left-24 w-[360px] h-[360px] rounded-full"
-             :class="isDark ? 'bg-violet-500/25' : 'bg-violet-300/35'"
-             style="filter: blur(80px);"></div>
-        <div class="glow-c absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[280px] h-[280px] rounded-full"
-             :class="isDark ? 'bg-indigo-600/15' : 'bg-indigo-200/40'"
-             style="filter: blur(70px);"></div>
-    </div>
+    <div class="absolute -top-[250px] -right-[250px] w-[500px] h-[500px] bg-primary/20 dark:bg-primary/30 rounded-full blur-[100px] animate-pulse-slow pointer-events-none"></div>
+    <div class="absolute -bottom-[200px] -left-[200px] w-[400px] h-[400px] bg-secondary/20 dark:bg-secondary/30 rounded-full blur-[100px] animate-pulse-slow pointer-events-none" style="animation-delay: 4s;"></div>
 
-    <!-- ② Toast 通知 -->
-    <div class="fixed left-1/2 -translate-x-1/2 z-[200] flex flex-col gap-2.5 pointer-events-none w-full max-w-xs items-center px-4"
-         style="top: max(1.5rem, env(safe-area-inset-top));">
-        <template x-for="toast in toasts" :key="toast.id">
-            <div x-transition:enter="transition ease-out duration-300"
-                 x-transition:enter-start="opacity-0 -translate-y-3 scale-95"
-                 x-transition:enter-end="opacity-100 translate-y-0 scale-100"
-                 x-transition:leave="transition ease-in duration-200"
-                 x-transition:leave-start="opacity-100 scale-100"
-                 x-transition:leave-end="opacity-0 scale-95"
-                 :class="toast.type==='error' ? 'bg-red-500' : toast.type==='warning' ? 'bg-amber-500' : 'bg-emerald-500'"
-                 class="w-full px-5 py-3 rounded-2xl shadow-xl text-white text-sm flex items-center gap-2.5 glass">
-                <span x-text="toast.type==='error' ? '✕' : toast.type==='warning' ? '⚠' : '✓'" class="font-bold flex-shrink-0"></span>
-                <span x-text="toast.message" class="break-words leading-snug"></span>
-            </div>
-        </template>
-    </div>
+    <button @click="toggleTheme()" class="absolute top-6 right-6 w-11 h-11 flex items-center justify-center rounded-full bg-white/80 dark:bg-slate-800/80 backdrop-blur border border-slate-200 dark:border-slate-700 shadow-md hover:scale-105 transition-transform z-50">
+        <svg x-show="!isDark" class="w-5 h-5 text-slate-800" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+        <svg x-show="isDark" class="w-5 h-5 text-slate-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+    </button>
 
-    <!-- ③ 主题切换 -->
-    <button @click="toggleTheme()" aria-label="切换主题"
-            class="fixed z-[150] w-11 h-11 flex items-center justify-center rounded-full glass border shadow-lg hover:scale-110 active:scale-95 transition-transform duration-200 tap-target"
-            :class="isDark ? 'bg-slate-800/70 border-slate-700/70' : 'bg-white/70 border-slate-200/80'"
-            style="top: max(1.25rem, env(safe-area-inset-top)); right: 1.25rem;">
-        <svg x-show="!isDark" class="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
-            <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
-            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
-            <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
-            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
-        </svg>
-        <svg x-show="isDark" class="w-5 h-5 text-slate-300" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
-            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-        </svg>
-    </button>
+    <div class="fixed top-6 right-6 z-[100] flex flex-col gap-3 pointer-events-none">
+        <template x-for="toast in toasts" :key="toast.id">
+            <div x-transition.opacity.duration.300ms 
+                 :class="toast.type === 'error' ? 'bg-red-500' : (toast.type === 'warning' ? 'bg-amber-500' : 'bg-emerald-500')"
+                 class="px-5 py-3 rounded-xl shadow-xl text-white text-sm backdrop-blur flex items-center gap-2 max-w-xs transition-all">
+                <span x-text="toast.type === 'error' ? '✕' : (toast.type === 'warning' ? '⚠' : '✓')" class="font-bold"></span>
+                <span x-text="toast.message" class="whitespace-pre-wrap"></span>
+            </div>
+        </template>
+    </div>
 
-    <!-- ④ 滚动内容层 -->
-    <div id="app-scroll">
-        <div class="content-centering">
+    <div class="w-full max-w-lg p-8 sm:p-10 bg-white/80 dark:bg-slate-800/80 backdrop-blur-xl border border-slate-200/50 dark:border-slate-700/50 rounded-[2rem] shadow-2xl z-10 relative">
+        <h1 class="text-3xl font-bold text-center mb-8 bg-gradient-to-br from-primary to-secondary bg-clip-text text-transparent">订阅转换</h1>
 
-            <!-- 主卡片 -->
-            <div class="w-full max-w-md glass rounded-[2rem] shadow-2xl border transition-colors duration-300"
-                 :class="isDark
-                     ? 'bg-slate-800/70 border-slate-700/50 shadow-black/50'
-                     : 'bg-white/72 border-white/60 shadow-slate-300/60'">
-                <div class="p-7 sm:p-9">
+        <div class="mb-6">
+            <label class="block mb-2 text-sm font-semibold text-slate-700 dark:text-slate-300">原始订阅链接</label>
+            <input x-model="subUrl" type="url" placeholder="请在此处粘贴原始订阅链接" 
+                   class="w-full h-12 px-4 bg-white dark:bg-slate-700/50 border border-slate-300 dark:border-slate-600 rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all placeholder:text-slate-400">
+            <div x-show="isShortLink" x-collapse x-cloak class="mt-2 px-4 py-2 bg-amber-50 dark:bg-amber-500/10 border border-amber-200 dark:border-amber-500/30 rounded-lg text-amber-600 dark:text-amber-400 text-sm flex items-center gap-2">
+                ⚡ 检测到短链接,将自动解析重定向后的链接
+            </div>
+        </div>
 
-                    <!-- 标题 -->
-                    <h1 class="text-[1.8rem] font-bold text-center mb-7 bg-gradient-to-br from-indigo-500 to-violet-500 bg-clip-text text-transparent tracking-tight leading-tight">
-                        订阅转换
-                    </h1>
+        <div class="mb-8 relative" x-data="{ dropdownOpen: false }">
+            <label class="block mb-2 text-sm font-semibold text-slate-700 dark:text-slate-300">目标客户端</label>
+            <div @click="if(isValid) dropdownOpen = !dropdownOpen" @click.outside="dropdownOpen = false"
+                 :class="!isValid ? 'opacity-60 cursor-not-allowed bg-slate-50 dark:bg-slate-700/30' : 'cursor-pointer bg-white dark:bg-slate-700/50 hover:border-primary/50'"
+                 class="w-full h-12 px-4 flex justify-between items-center border border-slate-300 dark:border-slate-600 rounded-xl transition-all">
+                <span x-text="clientName"></span>
+                <div class="w-2.5 h-2.5 border-l-2 border-b-2 border-slate-400 transform -rotate-45 transition-transform" :class="dropdownOpen ? 'rotate-[135deg] translate-y-0.5' : ''"></div>
+            </div>
+            
+            <div x-show="dropdownOpen" x-transition.opacity.duration.200ms x-cloak
+                 class="absolute z-20 w-full mt-2 p-1.5 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl shadow-xl backdrop-blur-xl">
+                <template x-for="opt in options" :key="opt.val">
+                    <div @click="client = opt.val; clientName = opt.name; dropdownOpen = false"
+                         :class="client === opt.val ? 'text-primary font-bold bg-primary/5 dark:bg-primary/10' : 'hover:bg-slate-50 dark:hover:bg-slate-700/50 hover:text-primary'"
+                         class="flex justify-between items-center p-3 rounded-lg cursor-pointer transition-colors text-sm">
+                        <span x-text="opt.name"></span>
+                        <svg x-show="client === opt.val" class="w-4 h-4 stroke-current" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    </div>
+                </template>
+            </div>
+        </div>
 
-                    <!-- 订阅链接输入 -->
-                    <div class="mb-5">
-                        <label class="block mb-2 text-sm font-semibold" :class="isDark ? 'text-slate-300' : 'text-slate-600'" for="subUrlInput">
-                            原始订阅链接
-                        </label>
-                        <input
-                            id="subUrlInput"
-                            x-model="subUrl"
-                            type="url"
-                            inputmode="url"
-                            autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
-                            placeholder="请在此处粘贴原始订阅链接"
-                            class="w-full h-12 px-4 text-base outline-none transition-all duration-200 rounded-xl border"
-                            :class="isDark
-                                ? 'bg-slate-700/60 border-slate-600 text-slate-100 placeholder:text-slate-500 focus:border-indigo-400 focus:ring-2 focus:ring-indigo-400/20'
-                                : 'bg-slate-50 border-slate-200 text-slate-800 placeholder:text-slate-400 focus:border-indigo-400 focus:ring-2 focus:ring-indigo-400/20'"
-                        >
-                        <div x-show="isShortLink" x-collapse x-cloak
-                             class="mt-2 px-3.5 py-2 rounded-xl text-sm flex items-center gap-2 border"
-                             :class="isDark ? 'bg-amber-500/10 border-amber-500/25 text-amber-400' : 'bg-amber-50 border-amber-200 text-amber-600'">
-                            <span class="flex-shrink-0">⚡</span>
-                            <span>检测到短链接，将自动解析重定向后的链接</span>
-                        </div>
-                    </div>
+        <button @click="convert" :disabled="!isValid || loading"
+                class="w-full h-12 relative overflow-hidden bg-gradient-to-r from-primary to-secondary text-white font-semibold rounded-xl flex items-center justify-center transition-all disabled:opacity-60 disabled:cursor-not-allowed hover:shadow-[0_8px_25px_-5px_rgba(99,102,241,0.5)] hover:-translate-y-0.5 active:translate-y-0">
+            <svg x-show="loading" class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+            <span x-text="loading ? '正在生成...' : '生成订阅链接'"></span>
+        </button>
 
-                    <!-- 客户端选择 -->
-                    <div class="mb-7 relative" x-data="{ dropdownOpen: false }">
-                        <label class="block mb-2 text-sm font-semibold" :class="isDark ? 'text-slate-300' : 'text-slate-600'">
-                            目标客户端
-                        </label>
+        <div x-show="generatedUrl" x-collapse x-cloak class="mt-6">
+            <label class="block mb-2 text-sm font-semibold text-slate-700 dark:text-slate-300">生成结果</label>
+            <div @click="copyToClipboard" class="group relative w-full p-4 pr-12 bg-slate-50 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600 hover:border-primary/50 rounded-xl cursor-pointer transition-all break-all text-xs font-mono text-slate-600 dark:text-slate-400 leading-relaxed">
+                <span x-text="generatedUrl"></span>
+                <button class="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center bg-primary text-white rounded-lg opacity-0 group-hover:opacity-100 transition-opacity hover:bg-primary-dark">
+                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                </button>
+            </div>
+        </div>
+    </div>
 
-                        <div @pointerup.prevent="if(isValid) dropdownOpen = !dropdownOpen"
-                             @click.outside="dropdownOpen = false"
-                             :class="[
-                                 'w-full h-12 px-4 flex justify-between items-center rounded-xl border transition-all duration-200 select-none tap-target',
-                                 !isValid
-                                     ? (isDark ? 'opacity-50 cursor-not-allowed bg-slate-700/30 border-slate-600/50' : 'opacity-50 cursor-not-allowed bg-slate-100 border-slate-200')
-                                     : (isDark ? 'cursor-pointer bg-slate-700/60 border-slate-600 hover:border-indigo-400/70' : 'cursor-pointer bg-slate-50 border-slate-200 hover:border-indigo-400/70')
-                             ]"
-                             role="combobox" :aria-expanded="dropdownOpen" aria-haspopup="listbox">
-                            <span x-text="clientName" :class="isDark ? 'text-slate-100' : 'text-slate-700'" class="text-base"></span>
-                            <svg class="w-4 h-4 flex-shrink-0 transition-transform duration-200"
-                                 :class="[dropdownOpen ? 'rotate-180' : '', isDark ? 'text-slate-400' : 'text-slate-400']"
-                                 viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                                <polyline points="6 9 12 15 18 9"/>
-                            </svg>
-                        </div>
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('appData', () => ({
+                subUrl: '',
+                client: 'c',
+                clientName: 'Clash (Meta)',
+                generatedUrl: '',
+                loading: false,
+                isDark: localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches),
+                toasts: [],
+                toastId: 0,
+                shortDomains: ['suo.yt', 't.cn', 'bit.ly', 'tinyurl.com', 'short.link', 'dwz.cn', 'is.gd', 'sub.cm'],
+                options: [
+                    { val: 'c', name: 'Clash (Meta)' }, { val: 'x', name: 'Sing-Box' },
+                    { val: 'g', name: 'Surge' }, { val: 's', name: 'Shadowrocket' }, { val: 'l', name: 'Loon' }
+                ],
+                
+                get isValid() { return this.subUrl.trim().toLowerCase().startsWith('http'); },
+                
+                // 5. 优化短链接判断逻辑
+                get isShortLink() { 
+                    if (!this.subUrl.trim()) return false;
+                    try { return this.shortDomains.some(d => new URL(this.subUrl).hostname.endsWith(d)); } catch { return false; }
+                },
 
-                        <div x-show="dropdownOpen"
-                             x-transition:enter="transition ease-out duration-150"
-                             x-transition:enter-start="opacity-0 -translate-y-2 scale-y-95"
-                             x-transition:enter-end="opacity-100 translate-y-0 scale-y-100"
-                             x-transition:leave="transition ease-in duration-100"
-                             x-transition:leave-start="opacity-100 scale-y-100"
-                             x-transition:leave-end="opacity-0 scale-y-95"
-                             x-cloak
-                             class="absolute z-30 w-full mt-2 p-1.5 rounded-xl shadow-2xl border glass origin-top"
-                             :class="isDark ? 'bg-slate-800/95 border-slate-700/80' : 'bg-white/95 border-slate-200/80'"
-                             role="listbox">
-                            <template x-for="opt in options" :key="opt.val">
-                                <div @pointerup.prevent="client = opt.val; clientName = opt.name; dropdownOpen = false"
-                                     :class="[
-                                         'flex justify-between items-center px-3.5 py-2.5 rounded-lg cursor-pointer transition-colors duration-150 text-sm tap-target select-none',
-                                         client === opt.val
-                                             ? (isDark ? 'text-indigo-400 font-semibold bg-indigo-500/15' : 'text-indigo-600 font-semibold bg-indigo-50')
-                                             : (isDark ? 'text-slate-300 hover:bg-slate-700/60' : 'text-slate-700 hover:bg-slate-50')
-                                     ]"
-                                     role="option" :aria-selected="client === opt.val">
-                                    <span x-text="opt.name"></span>
-                                    <svg x-show="client === opt.val" class="w-4 h-4 flex-shrink-0 stroke-current" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                                        <polyline points="20 6 9 17 4 12"/>
-                                    </svg>
-                                </div>
-                            </template>
-                        </div>
-                    </div>
+                toggleTheme() {
+                    this.isDark = !this.isDark;
+                    localStorage.setItem('theme', this.isDark ? 'dark' : 'light');
+                },
 
-                    <!-- 生成按钮 -->
-                    <button @click="convert" :disabled="!isValid || loading"
-                            class="w-full h-12 bg-gradient-to-r from-indigo-500 to-violet-500 text-white font-semibold rounded-xl flex items-center justify-center gap-2.5 transition-all duration-200 disabled:opacity-55 disabled:cursor-not-allowed hover:shadow-[0_8px_28px_-4px_rgba(99,102,241,0.55)] hover:-translate-y-0.5 active:translate-y-0 active:shadow-none tap-target text-base tracking-wide">
-                        <svg x-show="loading" class="animate-spin h-4 w-4 flex-shrink-0" fill="none" viewBox="0 0 24 24">
-                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
-                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"/>
-                        </svg>
-                        <span x-text="loading ? '正在生成...' : '生成订阅链接'"></span>
-                    </button>
+                showToast(message, type = 'success') {
+                    const id = ++this.toastId;
+                    this.toasts.push({ id, message, type });
+                    setTimeout(() => { this.toasts = this.toasts.filter(t => t.id !== id); }, 3000);
+                },
 
-                    <!-- 生成结果 -->
-                    <div x-show="generatedUrl" x-collapse x-cloak class="mt-5">
-                        <label class="block mb-2 text-sm font-semibold" :class="isDark ? 'text-slate-300' : 'text-slate-600'">
-                            生成结果
-                        </label>
-                        <div @click="copyToClipboard"
-                             class="group relative w-full p-4 pr-12 rounded-xl cursor-pointer transition-all duration-200 break-all text-xs font-mono leading-relaxed border tap-target"
-                             :class="isDark
-                                 ? 'bg-slate-700/50 border-slate-600/60 text-slate-400 hover:border-indigo-400/50'
-                                 : 'bg-slate-50 border-slate-200 text-slate-500 hover:border-indigo-400/50'">
-                            <span x-text="generatedUrl"></span>
-                            <span class="absolute right-2.5 top-1/2 -translate-y-1/2 w-7 h-7 flex items-center justify-center bg-indigo-500 text-white rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-150">
-                                <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
-                                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
-                                </svg>
-                            </span>
-                        </div>
-                    </div>
+                async convert() {
+                    if (!this.isValid) return this.showToast('请检查订阅链接是否有效', 'error');
+                    this.loading = true;
+                    this.generatedUrl = '';
+                    this.showToast('正在生成订阅链接...', 'warning');
 
-                </div>
-            </div>
+                    try {
+                        const res = await fetch('/api/shorten', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ url: this.subUrl.trim(), client: this.client })
+                        });
+                        const data = await res.json();
+                        
+                        if (res.ok) {
+                            this.generatedUrl = data.shortUrl;
+                            this.showToast(`解析成功 (${data.nodeCount}节点)`);
+                            this.copyToClipboard();
+                        } else {
+                            this.showToast(data.message || '生成失败', 'error');
+                        }
+                    } catch (err) {
+                        this.showToast('请求失败，请检查网络', 'error');
+                    } finally {
+                        this.loading = false;
+                    }
+                },
 
-        </div>
-    </div>
-
-    <script>
-        document.addEventListener('alpine:init', () => {
-            Alpine.data('appData', () => ({
-                subUrl: '',
-                client: 'c',
-                clientName: 'Clash (Meta)',
-                generatedUrl: '',
-                loading: false,
-                isDark: localStorage.getItem('theme') === 'dark' ||
-                        (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches),
-                toasts: [],
-                toastId: 0,
-                shortDomains: ['suo.yt', 't.cn', 'bit.ly', 'tinyurl.com', 'short.link', 'dwz.cn', 'is.gd', 'sub.cm'],
-                options: [
-                    { val: 'c', name: 'Clash (Meta)' },
-                    { val: 'x', name: 'Sing-Box' },
-                    { val: 'g', name: 'Surge' },
-                    { val: 's', name: 'Shadowrocket' },
-                    { val: 'l', name: 'Loon' }
-                ],
-
-                get isValid() { return this.subUrl.trim().toLowerCase().startsWith('http'); },
-
-                get isShortLink() {
-                    if (!this.subUrl.trim()) return false;
-                    try { return this.shortDomains.some(d => new URL(this.subUrl).hostname.endsWith(d)); }
-                    catch { return false; }
-                },
-
-                toggleTheme() {
-                    this.isDark = !this.isDark;
-                    localStorage.setItem('theme', this.isDark ? 'dark' : 'light');
-                },
-
-                showToast(message, type = 'success') {
-                    const id = ++this.toastId;
-                    this.toasts.push({ id, message, type });
-                    setTimeout(() => { this.toasts = this.toasts.filter(t => t.id !== id); }, 3000);
-                },
-
-                async convert() {
-                    if (!this.isValid) return this.showToast('请检查订阅链接是否有效', 'error');
-                    this.loading = true;
-                    this.generatedUrl = '';
-                    this.showToast('正在生成订阅链接...', 'warning');
-                    try {
-                        const res = await fetch('/api/shorten', {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({ url: this.subUrl.trim(), client: this.client })
-                        });
-                        const data = await res.json();
-                        if (res.ok) {
-                            this.generatedUrl = data.shortUrl;
-                            this.showToast(`解析成功 (${data.nodeCount}节点)`);
-                            this.copyToClipboard();
-                        } else {
-                            this.showToast(data.message || '生成失败', 'error');
-                        }
-                    } catch {
-                        this.showToast('请求失败，请检查网络', 'error');
-                    } finally {
-                        this.loading = false;
-                    }
-                },
-
-                copyToClipboard() {
-                    if (!this.generatedUrl) return;
-                    navigator.clipboard.writeText(this.generatedUrl)
-                        .then(() => this.showToast('链接已复制到剪贴板'))
-                        .catch(() => this.showToast('复制失败，请手动复制', 'error'));
-                }
-            }));
-        });
-    </script>
+                copyToClipboard() {
+                    if(!this.generatedUrl) return;
+                    navigator.clipboard.writeText(this.generatedUrl)
+                        .then(() => this.showToast('链接已复制到剪贴板'))
+                        .catch(() => this.showToast('复制失败，请手动复制', 'error'));
+                }
+            }));
+        });
+    </script>
 </body>
 </html>
