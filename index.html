@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="theme-color" id="meta-theme-color" content="#f8fafc">
     <title>订阅转换</title>
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg t='1775239517919' class='icon' viewBox='0 0 1024 1024' version='1.1' xmlns='http://www.w3.org/2000/svg' p-id='1080' width='16' height='16'%3E%3Cpath d='M64.781017 322.002011v335.425585c0 56.431786 34.440654 65.831271 34.440654 65.831271l363.188943 244.517396c56.353312 37.624097 40.702036-43.884608 40.702036-43.884608v-307.209692L64.781017 322.002011z' fill='%2337474F' p-id='1081'%3E%3C/path%3E%3Cpath d='M947.601905 327.653909v335.429073c0 56.426555-34.440654 65.831271-34.440654 65.831271s-306.832143 206.899402-363.188071 244.517395c-56.357672 37.618866-40.702036-43.887223-40.702036-43.887223V622.329501L947.601033 327.653909z' fill='%23455A64' p-id='1082'%3E%3C/path%3E%3Cpath d='M941.950007 322.002011v335.425585c0 56.431786-34.441526 65.831271-34.441526 65.831271s-306.834759 206.902018-363.188071 244.517396c-56.353312 37.624097-40.702036-43.884608-40.702036-43.884608v-307.209692L941.950007 322.002011z' fill='%23455A64' p-id='1083'%3E%3C/path%3E%3Cpath d='M544.093707 40.778668c-25.068199-15.663483-62.657419-15.663483-84.586644 0L83.577371 297.6488c-25.062096 15.668714-25.062096 43.85845 0 59.518445l375.929692 260.011722c25.05948 15.659995 62.657419 15.659995 84.586644 0l379.057331-263.141977c25.068199-15.659995 25.068199-43.85845 0-59.518445l-379.057331-253.739877z' fill='%23546E7A' p-id='1084'%3E%3C/path%3E%3Cpath d='M503.365512 982.930534c-18.833847 0-31.389745-12.041455-31.389745-27.099813v-337.300251c0-15.049639 12.555898-27.099813 31.389745-27.099813s31.389745 12.050174 31.389745 27.099813v334.283347c0 18.075262-12.555898 30.116717-31.389745 30.116717z' fill='%23546E7A' p-id='1085'%3E%3C/path%3E%3Cpath d='M816.321272 535.55691c0 31.363587 3.121536 43.902046-31.293833 65.85743l-78.221501 50.171276c-34.415368 21.955383-46.927669 3.138975-46.927669-25.085638v-81.534863c0-6.26923 0-9.408204-9.390765-15.677434-81.351756-56.449225-394.236889-272.820482-450.556195-313.583555L343.86201 115.352855c40.675878 25.087382 337.910607 222.649206 459.938241 307.314325 6.26051 3.138975 9.390765 9.408204 9.390765 12.547178v100.342552z' fill='%2399AAB5' p-id='1086'%3E%3C/path%3E%3Cpath d='M807.15721 425.945664c-125.201486-84.612802-422.558286-282.035117-460.112629-307.10506l-56.341977 34.471172L199.931309 215.983146c56.340233 40.745633 369.343949 253.838406 450.721863 310.244035 6.26051 3.130255 6.26051 6.26923 6.26051 9.399484l153.373783-106.550746s0-3.130255-3.130255-3.130255z' fill='%23CCD6DD' p-id='1087'%3E%3C/path%3E%3Cpath d='M817.17577 535.173258v-97.037909c0-6.26051-3.138975-9.390765-9.408204-12.521021-125.410751-84.525608-423.273275-281.73081-460.906092-306.773724L281.021484 162.664177c106.603062 71.995868 391.927127 259.819896 467.175321 313.034233 9.408204 6.26051 9.408204 12.521021 9.408204 15.651276V622.820402l31.354868-21.911786c31.354868-21.911786 28.215893-37.563062 28.215893-65.735358z' fill='%23CCD6DD' p-id='1088'%3E%3C/path%3E%3Cpath d='M807.000261 425.71896C681.763897 341.167194 384.337342 143.892237 346.765561 118.840604l-65.744077 43.841011c106.446114 72.022026 391.351648 259.90709 466.49521 313.138866l3.130255 3.130256 65.744078-46.971266c-6.26051-3.130255-6.26051-6.26051-9.390766-6.260511z' fill='%23E1E8ED' p-id='1089'%3E%3C/path%3E%3C/svg%3E">
     
@@ -34,7 +35,7 @@
         <svg x-show="isDark" class="w-5 h-5 text-slate-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
     </button>
 
-    <div class="fixed top-6 left-0 right-0 z-[100] flex flex-col items-center gap-3 pointer-events-none px-4">
+    <div class="fixed top-4 right-4 sm:top-6 sm:right-6 z-[100] flex flex-col items-end gap-3 pointer-events-none">
         <template x-for="toast in toasts" :key="toast.id">
             <div x-transition.opacity.duration.300ms 
                  :class="toast.type === 'error' ? 'bg-red-500' : (toast.type === 'warning' ? 'bg-amber-500' : 'bg-emerald-500')"
@@ -118,9 +119,41 @@
                     try { return this.shortDomains.some(d => new URL(this.subUrl).hostname.endsWith(d)); } catch { return false; }
                 },
 
+                // 初始化方法：确保页面一加载，就强行同步背景色给 Safari
+                init() {
+                    this.updateThemeColor();
+                    // 监听系统的浅色/深色偏好切换（如果用户没有手动固定主题）
+                    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+                        if (!localStorage.getItem('theme')) {
+                            this.isDark = e.matches;
+                            this.updateThemeColor();
+                        }
+                    });
+                },
+
+                // 核心功能：同步更新 html 节点背景色和 meta theme-color，解决 Safari 顶部底部颜色断层
+                updateThemeColor() {
+                    const bgColor = this.isDark ? '#0f172a' : '#f8fafc'; // slate-900 / slate-50
+                    
+                    // 1. 更新 Meta 标签，供 iOS Safari 状态栏和底部操作栏取色
+                    const metaTheme = document.getElementById('meta-theme-color');
+                    if (metaTheme) metaTheme.setAttribute('content', bgColor);
+                    
+                    // 2. 更新 html 根节点背景色，防止橡皮筋效果露底或沉浸式导航栏露底
+                    document.documentElement.style.backgroundColor = bgColor;
+                    
+                    // 顺便保障深色模式类名的强一致性
+                    if (this.isDark) {
+                        document.documentElement.classList.add('dark');
+                    } else {
+                        document.documentElement.classList.remove('dark');
+                    }
+                },
+
                 toggleTheme() {
                     this.isDark = !this.isDark;
                     localStorage.setItem('theme', this.isDark ? 'dark' : 'light');
+                    this.updateThemeColor(); // 切换时同步更新 Safari 的导航栏颜色
                 },
 
                 showToast(message, type = 'success') {
@@ -135,7 +168,6 @@
                     this.generatedUrl = '';
                     this.showToast('正在生成订阅链接...', 'warning');
 
-                    // 方案核心：解决 Safari 剪贴板需在同步代码中申请的问题
                     let resolveText, rejectText;
                     const textPromise = new Promise((resolve, reject) => {
                         resolveText = resolve;
@@ -144,20 +176,17 @@
                     
                     let isSafariAsyncCopyWorking = false;
                     
-                    // 利用 ClipboardItem 构建 Promise，以在 await 发生前让系统接管剪贴板事件
                     if (navigator.clipboard && window.ClipboardItem) {
                         try {
                             const item = new ClipboardItem({
                                 'text/plain': textPromise.then(text => {
-                                    if (!text) throw new Error('Canceled'); // 静默取消
+                                    if (!text) throw new Error('Canceled'); 
                                     return new Blob([text], { type: 'text/plain' });
                                 })
                             });
                             navigator.clipboard.write([item]).catch(() => {});
                             isSafariAsyncCopyWorking = true;
-                        } catch (e) {
-                            // Chrome 等如不支持 Promise，会在此降级处理
-                        }
+                        } catch (e) {}
                     }
 
                     try {
@@ -172,19 +201,16 @@
                             this.generatedUrl = data.shortUrl;
                             this.showToast(`解析成功 (${data.nodeCount || 0}节点)`);
                             
-                            // 解析成功，将值传递给在同步域初始化的 Safari ClipboardItem
                             resolveText(data.shortUrl);
 
-                            // 如果前置的方法没有起效（如 Chrome），则在这里执行常规 API 复制
                             if (!isSafariAsyncCopyWorking) {
                                 this.copyToClipboard(data.shortUrl, false);
                             }
                             
-                            // 延时提示让复制成功感更好
                             setTimeout(() => this.showToast('链接已自动复制到剪贴板'), 150);
                             
                         } else {
-                            resolveText(''); // 给空值取消 Promise 复制
+                            resolveText(''); 
                             this.showToast(data.message || '生成失败', 'error');
                         }
                     } catch (err) {
@@ -201,7 +227,6 @@
                     const fallbackCopy = () => {
                         const textArea = document.createElement("textarea");
                         textArea.value = text;
-                        // 防止出现键盘或滚动页面
                         textArea.style.position = "fixed";
                         textArea.style.top = "-9999px";
                         textArea.style.left = "-9999px";
@@ -221,7 +246,7 @@
                     if (navigator.clipboard && navigator.clipboard.writeText) {
                         navigator.clipboard.writeText(text)
                             .then(() => { if(showUserToast) this.showToast('链接已复制到剪贴板'); })
-                            .catch(() => fallbackCopy()); // 降级到 execCommand
+                            .catch(() => fallbackCopy());
                     } else {
                         fallbackCopy();
                     }
