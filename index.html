@@ -535,13 +535,16 @@
             color: var(--text-secondary); word-break: break-all; flex: 1; user-select: all;
         }
 
-        /* QR / copy row */
-        .result-actions { display: flex; gap: 8px; margin-top: 9px; }
+        /* QR / copy / import row */
+        .result-actions { display: flex; gap: 8px; margin-top: 9px; flex-wrap: wrap; }
         .action-btn {
-            flex: 1; display: flex; align-items: center; justify-content: center; gap: 6px;
-            height: 38px; background: var(--bg-input); border: 1px solid var(--border-subtle);
+            flex: 1 1 calc(33.333% - 6px); min-width: 90px;
+            display: flex; align-items: center; justify-content: center; gap: 6px;
+            height: 38px; padding: 0 4px;
+            background: var(--bg-input); border: 1px solid var(--border-subtle);
             border-radius: 10px; font-family: inherit; font-size: 12px; font-weight: 500;
             color: var(--text-secondary); cursor: pointer; transition: all var(--transition);
+            white-space: nowrap;
         }
         .action-btn:hover {
             background: var(--accent-light); border-color: var(--border-focus); color: var(--accent); transform: translateY(-1px);
@@ -824,6 +827,12 @@
                     </svg>
                     显示二维码
                 </button>
+                <button class="action-btn" id="import-btn" tabindex="0">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>
+                    </svg>
+                    <span>一键导入</span>
+                </button>
             </div>
         </div>
 
@@ -873,6 +882,16 @@
             return SHORT_DOMAINS.some(d => h === d || h.endsWith('.' + d));
         } catch { return false; }
     }
+    function getOS() {
+        const ua = navigator.userAgent || navigator.vendor || window.opera;
+        if (/windows phone/i.test(ua)) return 'Windows Phone';
+        if (/android/i.test(ua)) return 'Android';
+        if (/iPad|iPhone|iPod/.test(ua) && !window.MSStream) return 'iOS';
+        if (/Macintosh|Mac OS X/.test(ua)) return 'Mac';
+        if (/Windows/.test(ua)) return 'Windows';
+        if (/Linux/.test(ua)) return 'Linux';
+        return 'Unknown';
+    }
 
     /* ─── Toast ──── */
     const TOAST_CONFIG = {
@@ -909,6 +928,8 @@
     const resultBox     = document.getElementById('result-box');
     const copyBtn       = document.getElementById('copy-btn');
     const copyFullBtn   = document.getElementById('copy-full-btn');
+    const qrBtn         = document.getElementById('qr-btn');
+    const importBtn     = document.getElementById('import-btn');
     const clientValue   = document.getElementById('client-value');
     const inputAction   = document.getElementById('input-action');
     const progressTrack = document.getElementById('progress-track');
@@ -1110,11 +1131,46 @@
     copyBtn.addEventListener('click', (e) => doCopy(e, copyBtn));
     copyFullBtn.addEventListener('click', (e) => doCopy(e, copyFullBtn));
 
+    /* ─── One-Click Import (一键导入客户端) ──── */
+    importBtn.addEventListener('click', () => {
+        const url = resultUrl.textContent;
+        if (!url) return;
+        
+        const client = clientValue.value;
+        const os = getOS();
+        const encUrl = encodeURIComponent(url);
+        
+        const clientMap = {
+            'c': { name: 'Clash', scheme: `clash://install-config?url=${encUrl}`, os: ['Windows', 'Mac', 'Android', 'iOS', 'Linux'] },
+            'x': { name: 'Sing-Box', scheme: `sing-box://import-remote-profile?url=${encUrl}#Subscription`, os: ['Windows', 'Mac', 'Android', 'iOS', 'Linux'] },
+            'g': { name: 'Surge', scheme: `surge:///install-config?url=${encUrl}`, os: ['iOS', 'Mac'] },
+            's': { name: 'Shadowrocket', scheme: `shadowrocket://add/sub://${btoa(url)}`, os: ['iOS', 'Mac'] },
+            'l': { name: 'Loon', scheme: `loon://import?config=${encUrl}`, os: ['iOS', 'Mac'] }
+        };
+
+        const target = clientMap[client];
+        if (!target) {
+            showToast('未知客户端，无法一键导入', 'error');
+            return;
+        }
+
+        // 操作系统与客户端兼容性提示
+        if (os !== 'Unknown' && !target.os.includes(os)) {
+            showToast(`${target.name} 通常不支持当前系统 (${os})`, 'warning');
+        } else {
+            showToast(`正在唤起 ${target.name}...`);
+        }
+
+        // 延迟跳转以保证Toast有机会展示
+        setTimeout(() => {
+            window.location.href = target.scheme;
+        }, 300);
+    });
+
     /* ─── QR Code ──── */
     const modalOverlay = document.getElementById('modal-overlay');
     const qrCanvas     = document.getElementById('qr-canvas');
     const modalClose   = document.getElementById('modal-close');
-    const qrBtn        = document.getElementById('qr-btn');
 
     qrBtn.addEventListener('click', () => {
         const url = resultUrl.textContent;
