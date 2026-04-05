@@ -742,26 +742,18 @@
                         </div>
                         <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
                     </div>
-                    <div class="option" data-value="gi" data-img="https://gh-proxy.org/https://github.com/henryard/subx-frontend/raw/main/images/Surge.png">
+                    
+                    <div class="option" data-value="gc" data-img="https://gh-proxy.org/https://github.com/henryard/subx-frontend/raw/main/images/Surge.png">
                         <div class="option-icon">
-                            <img src="https://gh-proxy.org/https://github.com/henryard/subx-frontend/raw/main/images/Surge.png" alt="Surge iOS">
+                            <img src="https://gh-proxy.org/https://github.com/henryard/subx-frontend/raw/main/images/Surge.png" alt="Surge">
                         </div>
                         <div class="option-label">
-                            Surge iOS
-                            <span class="option-desc">iPhone · iPad</span>
+                            Surge
+                            <span class="option-desc">iOS · macOS 自适应配置</span>
                         </div>
                         <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
                     </div>
-                    <div class="option" data-value="gm" data-img="https://gh-proxy.org/https://github.com/henryard/subx-frontend/raw/main/images/Surge.png">
-                        <div class="option-icon">
-                            <img src="https://gh-proxy.org/https://github.com/henryard/subx-frontend/raw/main/images/Surge.png" alt="Surge Mac">
-                        </div>
-                        <div class="option-label">
-                            Surge Mac
-                            <span class="option-desc">macOS</span>
-                        </div>
-                        <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                    </div>
+                    
                     <div class="option" data-value="s" data-img="https://gh-proxy.org/https://github.com/henryard/subx-frontend/raw/main/images/Shadowrocket.png">
                         <div class="option-icon">
                             <img src="https://gh-proxy.org/https://github.com/henryard/subx-frontend/raw/main/images/Shadowrocket.png" alt="Shadowrocket">
@@ -1167,8 +1159,7 @@
         const clientMap = {
             'c': { name: 'Clash', scheme: `clash://install-config?url=${encUrl}`, os: ['Windows', 'Mac', 'Android', 'iOS', 'Linux'] },
             'x': { name: 'Sing-Box', scheme: `sing-box://import-remote-profile?url=${encUrl}#Subscription`, os: ['Windows', 'Mac', 'Android', 'iOS', 'Linux'] },
-            'gi': { name: 'Surge iOS', scheme: `surge:///install-config?url=${encUrl}`, os: ['iOS'] },
-            'gm': { name: 'Surge Mac', scheme: `surge:///install-config?url=${encUrl}`, os: ['Mac'] },
+            'gc': { name: 'Surge', scheme: `surge:///install-config?url=${encUrl}`, os: ['iOS', 'Mac'] },
             's': { name: 'Shadowrocket', scheme: `shadowrocket://add/sub://${btoa(url)}`, os: ['iOS', 'Mac'] },
             'l': { name: 'Loon', scheme: `loon://import?config=${encUrl}`, os: ['iOS', 'Mac'] }
         };
