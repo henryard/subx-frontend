@@ -781,7 +781,7 @@
             'x': { name: 'Sing-Box', scheme: `sing-box://import-remote-profile?url=${encUrl}#Subscription`, os: ['Windows', 'Mac', 'Android', 'iOS', 'Linux'] },
             'gc': { name: 'Surge', scheme: `surge:///install-config?url=${encUrl}`, os: ['iOS', 'Mac'] },
             's': { name: 'Shadowrocket', scheme: `shadowrocket://add/sub://${btoa(url)}`, os: ['iOS', 'Mac'] },
-            'l': { name: 'Loon', scheme: `loon://import?config=${encUrl}`, os: ['iOS', 'Mac'] }
+            'l': { name: 'Loon', scheme: `loon://import?sub=${encUrl}`, os: ['iOS', 'Mac'] }
         };
 
         const target = clientMap[client];
