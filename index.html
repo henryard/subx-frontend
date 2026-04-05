@@ -1068,15 +1068,28 @@
             });
             const data = await res.json();
             if (res.ok) {
+                // 立即移除加载提示 Toast，避免信息冗余影响体验
+                toastContainer.querySelectorAll('.toast[data-type="warning"]').forEach(t => t.remove());
+
                 resultUrl.textContent = data.shortUrl;
                 resultStatus.style.opacity = '1';
                 const nc = data.nodeCount ?? 0;
                 nodeCountText.textContent = nc > 0 ? `${nc} 个节点` : '已就绪';
+
+                // 判断是否为 Surge 或 Loon，隐藏一键导入按钮
+                const currentClient = clientValue.value;
+                if (currentClient === 'g' || currentClient === 'l') {
+                    importBtn.style.display = 'none';
+                } else {
+                    importBtn.style.display = ''; // 恢复CSS默认布局（flex）
+                }
+
                 resultWrap.style.display = 'block';
                 finishProgress(true);
+                
                 navigator.clipboard.writeText(data.shortUrl)
                     .then(() => showToast(`转换成功 · ${nc} 节点，已自动复制`))
-                    .catch(() => showToast('转换成功，请手动复制链接', 'warning'));
+                    .catch(() => showToast('转换成功，请手动复制链接', 'success'));
             } else {
                 finishProgress(false);
                 showToast(data.message || '生成失败，未知错误', 'error');
