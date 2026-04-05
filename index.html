@@ -149,7 +149,7 @@
             background: var(--bg-card);
             border: 1px solid var(--border);
             border-radius: var(--radius-card);
-            padding: 28px 26px 26px; /* 紧凑处理 */
+            padding: 28px 26px 26px; 
             box-shadow: var(--card-shadow);
             backdrop-filter: blur(36px) saturate(1.9);
             -webkit-backdrop-filter: blur(36px) saturate(1.9);
@@ -171,8 +171,8 @@
 
         /* ══ Header ══ */
         .header {
-            display: flex; flex-direction: column; align-items: center; gap: 10px;
-            margin-bottom: 22px;
+            display: flex; flex-direction: column; align-items: center; gap: 12px;
+            margin-bottom: 24px;
         }
         .logo-wrap { position: relative; }
         .logo-ring {
@@ -182,17 +182,17 @@
         }
         @keyframes spinRing { to { transform: rotate(360deg); } }
         .logo-icon {
-            width: 50px; height: 50px; /* 紧凑处理 */
+            width: 44px; height: 44px; /* 图标缩小 */
             background: linear-gradient(145deg, var(--accent) 0%, var(--accent-2) 100%);
-            border-radius: 14px;
+            border-radius: 12px;
             display: flex; align-items: center; justify-content: center;
             box-shadow: 0 10px 28px -6px var(--accent-glow), 0 2px 6px rgba(86,96,246,0.15), inset 0 1px 0 rgba(255,255,255,0.30);
             position: relative; z-index: 1; transition: transform 0.3s var(--spring), box-shadow 0.3s;
         }
         .logo-icon:hover { transform: scale(1.06) rotate(-3deg); box-shadow: 0 16px 36px -8px var(--accent-glow); }
-        .logo-icon svg { width: 24px; height: 24px; stroke: #fff; }
+        .logo-icon svg { width: 20px; height: 20px; stroke: #fff; } /* 内部图形等比例缩小 */
         .logo-glow {
-            position: absolute; inset: -8px; border-radius: 20px;
+            position: absolute; inset: -7px; border-radius: 16px;
             background: radial-gradient(circle, var(--accent-glow), transparent 70%);
             animation: logoGlow 3.5s ease-in-out infinite; z-index: 0;
         }
@@ -211,7 +211,7 @@
         .divider {
             height: 1px;
             background: linear-gradient(90deg, transparent, var(--border-subtle) 25%, var(--border-subtle) 75%, transparent);
-            margin: 0 -2px 20px;
+            margin: 0 -2px 24px;
             position: relative; overflow: visible;
         }
         .divider::after {
@@ -221,7 +221,7 @@
         }
 
         /* ══ Field group ══ */
-        .field { margin-bottom: 16px; }
+        .field { margin-bottom: 22px; } /* 增加了原有的间距，使其不拥挤 */
         .label {
             display: flex; align-items: center; gap: 6px;
             font-size: 10.5px; font-weight: 600; letter-spacing: 0.8px;
@@ -243,7 +243,7 @@
         .input-wrap:focus-within .input-icon { color: var(--accent); transform: translateY(-50%) scale(1.08); }
 
         input[type="url"] {
-            width: 100%; height: 44px; /* 紧凑处理 */
+            width: 100%; height: 44px; 
             padding: 0 12px 0 38px;
             background: var(--bg-input); border: 1.5px solid var(--border); border-radius: var(--radius-input);
             color: var(--text-primary); font-family: inherit; font-size: 13.5px; outline: none;
@@ -278,7 +278,7 @@
         .select-wrap { position: relative; }
         .select-trigger {
             display: flex; align-items: center; justify-content: space-between;
-            width: 100%; height: 44px; /* 紧凑处理 */
+            width: 100%; height: 44px;
             padding: 0 12px; background: var(--bg-input); border: 1.5px solid var(--border);
             border-radius: var(--radius-input); cursor: pointer; font-family: inherit;
             font-size: 13.5px; color: var(--text-primary); user-select: none;
@@ -345,7 +345,8 @@
 
         /* ══ Convert button ══ */
         .btn-convert {
-            position: relative; overflow: hidden; width: 100%; height: 46px; /* 紧凑处理 */ margin-top: 8px;
+            position: relative; overflow: hidden; width: 100%; height: 46px; 
+            margin-top: 18px; /* 增加了按钮上方的间距 */
             background: linear-gradient(130deg, var(--accent) 0%, var(--accent-2) 100%);
             border: none; border-radius: var(--radius-btn); color: #fff;
             font-family: 'DM Sans', inherit; font-size: 14px; font-weight: 600; cursor: pointer;
@@ -409,7 +410,7 @@
         .result-actions { display: flex; gap: 8px; margin-top: 8px; }
         .action-btn {
             flex: 1; display: flex; align-items: center; justify-content: center; gap: 6px;
-            height: 36px; /* 紧凑处理 */
+            height: 36px;
             background: var(--bg-input); border: 1px solid var(--border-subtle); border-radius: 10px;
             font-family: inherit; font-size: 12px; font-weight: 500; color: var(--text-secondary); cursor: pointer; transition: all var(--transition); position: relative; overflow: hidden;
         }
